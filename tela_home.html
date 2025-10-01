@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dashboard Metrô - Corrigido</title>
+
+  <!-- Font Awesome (sem integrity para evitar erros de mismatch) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    * { box-sizing: border-box; }
+    :root {
+      --blue-escuro: #002776;
+      --blue-nav: #001f5b;
+      --gray-bar: #f2f2f2;
+      --card-border: #d6d6d6;
+      --max-width: 1000px;
+      --container-padding: 20px;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      color: #111;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: #ffffff;
+    }
+
+    /* topo grande (Home / Dashboard) */
+    header.topo {
+      background: var(--blue-escuro);
+      color: #fff;
+      padding: 18px var(--container-padding);
+      font-size: 26px;
+      font-weight: 700;
+    }
+
+    /* barra de navegação abaixo do topo */
+    nav.navbar {
+      background: var(--blue-nav);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      padding: 12px var(--container-padding);
+      align-items: center;
+    }
+    nav.navbar a { color: #fff; text-decoration: none; font-weight: 500; }
+
+    /* área principal - ocupa espaço para empurrar o rodapé para baixo */
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 48px 20px;
+    }
+
+    /* Logo Metrô: centralizado e com margem como sua imagem */
+    <img src="https://www.metro.sp.gov.br/wp-content/themes/metrosp/assets/images/logo-metro.png">
+
+    h1 {
+      margin: 6px 0 6px;
+      font-size: 32px;
+      font-weight: 600;
+      font-style: italic;
+    }
+    p.lead {
+      margin: 0;
+      color: #444;
+      font-size: 15px;
+    }
+
+    /* grid de cards */
+    .cards {
+      width: 100%;
+      max-width: var(--max-width);
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+      margin: 40px auto 0;
+      padding: 0 10px;
+    }
+
+    /* cards clicáveis (usando <a>) */
+    .card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #fff;
+      border: 1px solid var(--card-border);
+      border-radius: 6px;
+      padding: 18px 20px;
+      text-decoration: none;
+      color: inherit;
+      transition: box-shadow .15s, border-color .15s, transform .08s;
+    }
+    .card:hover {
+      border-color: var(--blue-escuro);
+      box-shadow: 0 6px 20px rgba(2,39,109,0.08);
+      transform: translateY(-2px);
+    }
+    .card .left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 16px;
+      font-weight: 600;
+    }
+    .card .left i {
+      font-size: 22px;
+      color: var(--blue-escuro);
+      min-width: 28px;
+      text-align: center;
+    }
+    .card .arrow { font-size: 18px; color: var(--blue-escuro); }
+
+    /* rodapé cinza, maior e mais baixo */
+    footer.rodape {
+      background: var(--gray-bar);
+      padding: 30px 20px; /* deixamos mais alto como pediu */
+      display: flex;
+      justify-content: center;
+      gap: 50px;
+      align-items: center;
+      font-size: 15px;
+      flex-shrink: 0;
+    }
+    footer.rodape div { display: flex; align-items: center; gap: 10px; color: #111; }
+
+    /* responsivo */
+    @media (max-width: 760px) {
+      .cards { grid-template-columns: 1fr; gap: 18px; padding: 0 12px; }
+      header.topo { font-size: 20px; padding: 14px 12px; }
+      .metro-logo img { max-width: 260px; }
+      footer.rodape { flex-wrap: wrap; gap: 18px; padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="topo">Home / Dashboard</header>
+
+  <nav class="navbar">
+    <a href="#">Contato</a>
+    <a href="#">Treinamentos</a>
+    <a href="#">Ajuda <i class="fa-solid fa-circle-info" style="margin-left:8px;"></i></a>
+  </nav>
+
+  <main>
+    <!-- Logo do Metrô (SVG público do Wikimedia) -->
+    <div class="metro-logo" aria-hidden="false">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/8/84/Logo_Metr%C3%B4_SP.svg" alt="Logo Metrô São Paulo">
+    </div>
+
+    <h1>Seja Bem Vindo!</h1>
+    <p class="lead">Você tem 0 treinamentos pendentes</p>
+
+    <div class="cards" role="list">
+      <a class="card" href="#" role="listitem" aria-label="Cadastro de treinamentos">
+        <div class="left"><i class="fa-solid fa-graduation-cap"></i> Cadastro De Treinamentos</div>
+        <div class="arrow"><i class="fa-solid fa-arrow-right"></i></div>
+      </a>
+
+      <a class="card" href="#" role="listitem" aria-label="Acompanhamento de treinamento">
+        <div class="left"><i class="fa-solid fa-chart-bar"></i> Acompanhamento De Treinamento</div>
+        <div class="arrow"><i class="fa-solid fa-arrow-right"></i></div>
+      </a>
+
+      <a class="card" href="#" role="listitem" aria-label="Cadastro de colaboradores">
+        <div class="left"><i class="fa-solid fa-file-pen"></i> Cadastro De Colaboradores</div>
+        <div class="arrow"><i class="fa-solid fa-arrow-right"></i></div>
+      </a>
+
+      <a class="card" href="#" role="listitem" aria-label="Registro de presença">
+        <div class="left"><i class="fa-solid fa-clipboard-list"></i> Registro De Presença</div>
+        <div class="arrow"><i class="fa-solid fa-arrow-right"></i></div>
+      </a>
+    </div>
+  </main>
+
+  <footer class="rodape" aria-label="Informações de contato">
+    <div><i class="fa-solid fa-phone"></i> Fale conosco</div>
+    <div><i class="fa-regular fa-comment-dots"></i> Ouvidoria</div>
+    <div><i class="fa-regular fa-clock"></i> 8h às 18h</div>
+    <div><i class="fa-solid fa-envelope"></i> SMS</div>
+  </footer>
+
+</body>
+</html>

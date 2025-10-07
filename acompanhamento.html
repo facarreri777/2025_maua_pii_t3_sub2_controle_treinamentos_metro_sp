@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Acompanhamento de progresso</title>
+<style>
+  :root{
+    --azul-escuro:#0d2b73;
+    --azul:#1e3fa1;
+    --borda:#d9dce6;
+    --txt:#1f2430;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;color:var(--txt);background:#fff}
+
+  /* Topo azul + linha branca */
+  .topbar{background:var(--azul-escuro);color:#fff}
+  .hero{padding:18px 20px 8px;border-bottom:6px solid #fff}
+  .hero h1{margin:0;font-size:clamp(18px,3.2vw,28px)}
+
+  /* Navbar preto: logo à esquerda + links centralizados */
+  .nav{
+    display:grid;grid-template-columns:1fr auto 1fr;
+    align-items:center;gap:12px;padding:10px 20px;background:#000;
+  }
+  .nav-left{
+    justify-self:start;display:flex;align-items:center;gap:10px;
+    position:relative;height:28px;overflow:visible; /* mantém altura do nav */
+  }
+  .nav-left img{
+    height:28px;width:auto;object-fit:contain;display:block;
+    transform:scale(1.5);              /* <<< aumente/diminua aqui (1.2, 1.4, 1.8...) */
+    transform-origin:left center;      /* ancora na esquerda sem mexer layout */
+    /* opcional: alinhar fino verticalmente
+       translateY(2px) se precisar
+    */
+  }
+  .nav-center{justify-self:center;display:flex;gap:22px;align-items:center}
+  .nav-center a{color:#fff;text-decoration:none;font-size:.95rem;opacity:.95}
+  .nav-center a.active{font-weight:600;text-decoration:none}
+  .nav-center a:hover{opacity:1}
+
+  /* Container */
+  .wrap{max-width:1100px;margin:24px auto 72px;padding:0 16px}
+
+  /* Logo do Metrô acima dos filtros (mais respiro) */
+  .hero-logo{display:flex;justify-content:center;align-items:center;min-height:70px;margin:16px 0 18px}
+  .hero-logo img{max-height:60px;width:auto;object-fit:contain}
+
+  /* Card e filtros simétricos */
+  .card{background:#fff;border:1px solid var(--borda);border-radius:14px;padding:16px;box-shadow:0 4px 18px rgba(13,43,115,.06)}
+  .card h2{margin:0 0 8px;font-size:1.05rem}
+  .filters{display:grid;gap:12px;grid-template-columns:repeat(4,minmax(180px,1fr));align-items:end}
+  .field{display:flex;flex-direction:column;gap:6px}
+  label{font-size:.84rem;color:#4b5270}
+  select{height:40px;padding:0 10px;border:1px solid var(--borda);border-radius:10px;background:#fff;font-size:.95rem}
+  .actions{display:flex;gap:10px}
+  .btn{height:40px;padding:0 14px;border-radius:10px;border:0;font-weight:600;cursor:pointer}
+  .btn.primary{background:#1e3fa1;color:#fff}
+  .btn.ghost{background:#eef1ff;color:#223;border:1px solid var(--borda)}
+
+  /* Tabela branca */
+  .table-card{margin-top:16px}
+  table{width:100%;border-collapse:collapse}
+  thead th{background:var(--azul-escuro);color:#fff;text-align:left;padding:12px;font-weight:600;font-size:.9rem}
+  tbody td{padding:12px;background:#fff;border-bottom:1px solid (--borda)}
+
+  /* Estado vazio */
+  .empty{padding:18px;text-align:center;color:#5a5f79;font-size:.95rem;border:1px dashed var(--borda);border-radius:10px;margin-top:10px}
+
+  /* Responsivo */
+  @media (max-width:900px){ .filters{grid-template-columns:repeat(2,minmax(160px,1fr))} }
+  @media (max-width:640px){
+    .filters{grid-template-columns:1fr}
+    thead{display:none}
+    tbody tr{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:10px}
+    tbody td{border-bottom:0;background:#fff}
+    tbody td[data-th]:before{content:attr(data-th) " ";display:block;font-size:.75rem;color:#6b7190;font-weight:600}
+  }
+</style>
+</head>
+<body>
+  <!-- Topo -->
+  <div class="topbar">
+    <div class="hero"><h1>Acompanhamento de progresso</h1></div>
+    <nav class="nav">
+      <div class="nav-left">
+        <!-- LOGO à esquerda do navbar preto -->
+        <img src="imagens/logoGov.png" alt="Governo do Estado de São Paulo">
+      </div>
+      <div class="nav-center">
+        <a href="#" class="active">Home</a>
+        <a href="#">Treinamentos</a>
+        <a href="#">Contato</a>
+      </div>
+      <div></div>
+    </nav>
+  </div>
+
+  <main class="wrap">
+    <!-- LOGO do Metrô acima dos filtros -->
+    <div class="hero-logo">
+      <img src="imagens/logoMretro.png" alt="Metrô de São Paulo">
+    </div>
+
+    <!-- Filtros -->
+    <section class="card">
+      <h2>Filtros rápidos</h2>
+      <div class="filters">
+        <div class="field">
+          <label for="fTreinamento">Treinamentos</label>
+          <select id="fTreinamento"><option value="">Todos</option></select>
+        </div>
+        <div class="field">
+          <label for="fSetor">Setor/Departamento</label>
+          <select id="fSetor"><option value="">Todos</option></select>
+        </div>
+        <div class="actions">
+          <button class="btn primary" type="button">Filtrar</button>
+          <button class="btn ghost" type="button">Limpar</button>
+        </div>
+        <div></div><!-- espaço p/ simetria -->
+      </div>
+    </section>
+
+    <!-- Tabela -->
+    <section class="card table-card">
+      <div>
+        <table>
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>E-mail</th>
+              <th>Setor/Cargo</th>
+              <th>Presença</th>
+              <th>Progresso</th>
+              <th>Status</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody id="tbody">
+            <!-- Preencha as linhas via outra página/geração de HTML -->
+          </tbody>
+        </table>
+      </div>
+      <div class="empty">
+        Nenhum aluno cadastrado ainda. Adicione alunos na página de cadastro para vê-los aqui.
+      </div>
+    </section>
+  </main>
+
+  <footer style="background:#0d2b73;color:#cbd6ff;padding:14px 20px;margin-top:28px;border-top:3px solid #1b3fb9;">
+    <strong style="color:#fff">Metrô SP —</strong> Todos os direitos reservados.
+  </footer>
+</body>
+</html>

@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Login - Metrô Controle de Treinamentos</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --blue-escuro: #002776;
+            --gray-light: #f5f5f5;
+            --gray-border: #d6d6d6;
+            --white: #ffffff;
+        }
+        
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: var(--blue-escuro);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            color: #111;
+            border: 1px solid white;
+        }
+
+        /* Header */
+        .header {
+            padding: 20px;
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        /* Main container */
+        .login-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* Login panel */
+        .login-panel {
+            background: var(--white);
+            border-radius: 8px;
+            padding: 40px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border: 1px solid white;
+        }
+
+        /* Logo section */
+        .logo-section {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background-image: url("2025_maua_pii_t3_sub2_controle_treinamentos_metro_sp/imagens/logo_metro_sp.png");
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            margin-right: 15px;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-text h1 {
+            margin: 0;
+            color: var(--blue-escuro);
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .logo-text p {
+            margin: 0;
+            color: var(--blue-escuro);
+            font-size: 14px;
+            line-height: 1.2;
+        }
+
+        /* Form styles */
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .input-container {
+            display: flex;
+            align-items: center;
+            background: var(--gray-light);
+            border-radius: 25px;
+            padding: 12px 20px;
+            border: 1px solid var(--gray-border);
+        }
+
+        .input-container i {
+            color: var(--blue-escuro);
+            font-size: 16px;
+            margin-right: 12px;
+            min-width: 16px;
+            border: 1px solid var(--blue-escuro);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .input-container input {
+            border: none;
+            background: transparent;
+            outline: none;
+            flex: 1;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .input-container input::placeholder {
+            color: #666;
+        }
+
+        .input-container:focus-within {
+            border-color: var(--blue-escuro);
+            box-shadow: 0 0 0 2px rgba(0, 39, 118, 0.1);
+        }
+
+        /* Button */
+        .login-button {
+            width: 100%;
+            background: var(--blue-escuro);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 15px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .login-button:hover {
+            background: #001f5c;
+        }
+
+        .login-button:active {
+            transform: translateY(1px);
+        }
+
+        /* Footer line */
+        .footer-line {
+            height: 1px;
+            background: white;
+            margin-top: auto;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        Login (Instrutor/aluno)
+    </div>
+
+    <div class="login-container">
+        <div class="login-panel">
+            <div class="logo-section">
+                <div class="logo-icon"></div>
+                <div class="logo-text">
+                    <h1>METRÔ</h1>
+                    <p>Controle de<br>Treinamentos</p>
+                </div>
+            </div>
+
+            <form>
+                <div class="form-group">
+                    <div class="input-container">
+                        <i class="fa-solid fa-user"></i>
+                        <input type="text" placeholder="Usuário" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="input-container">
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="password" placeholder="Senha" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="login-button">
+                    Acessar
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div class="footer-line"></div>
+</body>
+
+</html>

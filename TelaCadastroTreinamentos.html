@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cadastro de Colaboradores</title>
+  <link rel="stylesheet" href="styleCadastroTreinamentos.css">
+
+  <!-- estilos só do toast -->
+  <style>
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 24px;
+      transform: translateX(-50%) translateY(8px);
+      background: #22c55e;          /* verde sucesso */
+      color: #fff;
+      border-radius: 12px;
+      padding: 12px 18px;
+      font-weight: 800;
+      box-shadow: 0 10px 30px rgba(0,0,0,.15);
+      opacity: 0;
+      transition: opacity .25s, transform .25s;
+      z-index: 9999;
+    }
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <!-- TOPO AZUL ESCURO -->
+ <!-- TOPO AZUL ESCURO -->
+<header class="topo" role="banner">
+  <div class="wrap">
+    <span class="titulo-site">Cadastro de colaboradores</span>
+  </div>
+</header>
+
+<!-- NAV PRETA -->
+<div class="nav-preta">
+  <div class="wrap nav-inner">
+    <div class="gov">
+      <!-- usa a imagem que você tem na pasta -->
+      <img src="imagens/logoGov.png" alt="Governo de SP">
+    </div>
+    <nav class="menu" aria-label="Navegação principal">
+      <a href="#" class="ativo">Home</a>
+      <a href="#">Contato</a>
+    </nav>
+    <div class="spacer"></div>
+  </div>
+</div>
+
+<!-- LOGO METRÔ CENTRAL -->
+<div class="logo-metro">
+  <img src="imagens/logoMretro.png" alt="Logo Metrô SP">
+</div>
+
+
+    <h2 class="section-title">Dados do colaborador</h2>
+
+    <!-- FORM CARD -->
+    <form class="card" onsubmit="handleSubmit(event)">
+      <div class="grid">
+        <label class="field">
+          <div class="input">
+            <i class="ico">👤</i>
+            <input type="text" placeholder="Nome Completo" required>
+          </div>
+        </label>
+
+        <label class="field">
+          <div class="input">
+            <i class="ico">📅</i>
+            <input type="date" placeholder="dd/mm/aaaa">
+          </div>
+        </label>
+
+        <label class="field">
+          <div class="input">
+            <i class="ico">🆔</i>
+            <input type="text" placeholder="CPF">
+          </div>
+        </label>
+
+        <label class="field">
+          <div class="input">
+            <i class="ico">✉️</i>
+            <input type="email" placeholder="E-mail comercial">
+          </div>
+        </label>
+
+        <label class="field">
+          <div class="input">
+            <i class="ico">💼</i>
+            <input type="text" placeholder="Cargo">
+          </div>
+        </label>
+
+        <label class="field">
+          <div class="input">
+            <i class="ico">📞</i>
+            <input type="tel" placeholder="Telefone">
+          </div>
+        </label>
+
+        <label class="field full">
+          <div class="input">
+            <i class="ico">🏷️</i>
+            <input type="text" placeholder="Setor">
+          </div>
+        </label>
+      </div>
+    </form>
+
+    <!-- AÇÕES -->
+    <div class="actions">
+      <button type="button" class="btn back">Voltar</button>
+      <button type="submit" class="btn save" onclick="document.querySelector('form').requestSubmit()">
+        Cadastrar colaborador
+      </button>
+    </div>
+  </main>
+
+  <!-- toast -->
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden>
+    Colaborador cadastrado com sucesso!
+  </div>
+
+  <!-- script do toast -->
+  <script>
+    function handleSubmit(e){
+      e.preventDefault();
+      const toast = document.getElementById('toast');
+      toast.hidden = false;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+        // espera a animação sumir pra esconder
+        setTimeout(() => { toast.hidden = true; }, 250);
+      }, 2500);
+      e.target.reset(); // limpa o form (tira se não quiser)
+    }
+  </script>
+</body>
+</html>

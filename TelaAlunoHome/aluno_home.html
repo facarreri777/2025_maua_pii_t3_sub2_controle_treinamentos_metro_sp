@@ -3,87 +3,54 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Metrô SP — Home do Aluno</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    *{box-sizing:border-box}
-    :root{
-      --blue-escuro:#002776;
-      --gray-bar:#f2f2f2;
-      --card-border:#d6d6d6;
-      --max-width:1100px;
-      --nav-black:#000;
-    }
-    body{margin:0;font-family:"Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;color:#111;min-height:100vh;display:flex;flex-direction:column;background:#fff}
-    header.topo{background:var(--blue-escuro);color:#fff;padding:22px 28px;font-size:28px;font-weight:800;letter-spacing:.2px}
-    .barra-branca{height:18px;background:#fff;border-bottom:1px solid #eee}
-    .faixa-preta{background:var(--nav-black);color:#fff;display:flex;align-items:center;gap:24px;padding:8px 16px;min-height:68px}
-    .faixa-preta img{height:52px;display:block;background:#000;margin:0;filter:brightness(0.98) contrast(1.05)}
-    .faixa-preta nav{flex:1;display:flex;justify-content:center;gap:72px}
-    .faixa-preta nav a{color:#eaeaea;text-decoration:none;font-weight:600;display:flex;align-items:center;gap:10px;font-size:16px;position:relative;transition:.15s}
-    .faixa-preta nav a:hover{color:#fff;transform:translateY(-1px)}
-    .faixa-preta nav a::after{content:"";position:absolute;left:0;right:0;bottom:-10px;height:3px;background:transparent;border-radius:2px;transition:.15s}
-    .faixa-preta nav a:hover::after{background:#1f4aa3}
-    main{flex:1;display:flex;flex-direction:column;align-items:center;padding:70px 24px 50px}
-    .logo-metro{background-image:url("imagens/logoMretro.png");background-size:contain;background-repeat:no-repeat;background-position:center;width:360px;height:140px}
-    h1{margin:14px 0 6px;font-size:34px;font-weight:700;font-style:italic;color:#1b1b1b;text-align:center}
-    p.lead{margin:0;color:#444;font-size:15px;text-align:center}
-    .cards{width:100%;max-width:var(--max-width);display:grid;grid-template-columns:repeat(2,1fr);gap:28px;margin:42px auto 0;padding:0 8px}
-    .cards .full{grid-column:1/-1;max-width:520px;justify-self:center}
-    .card{display:flex;align-items:center;justify-content:space-between;background:#fff;border:1px solid var(--card-border);border-radius:10px;padding:20px 22px;text-decoration:none;color:inherit;transition: box-shadow .15s,border-color .15s,transform .08s}
-    .card:hover{border-color:var(--blue-escuro);box-shadow:0 8px 24px rgba(2,39,109,.10);transform:translateY(-2px)}
-    .card .left{display:flex;align-items:center;gap:14px;font-size:17px;font-weight:700}
-    .card .left i{font-size:22px;color:var(--blue-escuro);min-width:28px;text-align:center}
-    .card .arrow{font-size:18px;color:var(--blue-escuro)}
-    footer.rodape{background:var(--gray-bar);padding:34px 24px;display:flex;justify-content:center;gap:56px;align-items:center;font-size:15px;flex-shrink:0}
-    footer.rodape div{display:flex;align-items:center;gap:10px;color:#111}
-    @media (max-width:820px){.faixa-preta nav{gap:36px}.cards{grid-template-columns:1fr;gap:20px}.cards .full{max-width:none}}
-  </style>
-</head>
+  <title>Metrô - Dashboard</title>
+ <link rel="stylesheet" href="styleAluno.css?v=2">
+
 <body>
 
-  <!-- HEADER AZUL -->
-  <header class="topo">Home do Aluno</header>
+  <header class="topo">Home aluno</header>
 
-  <!-- BARRA BRANCA -->
-  <div class="barra-branca"></div>
-
-  <!-- NAV PRETA (invertida) -->
-  <div class="faixa-preta">
-    <img src="imagens/logoGov.png" alt="Governo de São Paulo">
-    <nav>
-      <a href="#"><i class="fa-solid fa-phone"></i> Contato</a>
-      <a href="#"><i class="fa-solid fa-circle-info"></i> Ajuda</a>
-    </nav>
+  <!-- Logo do Governo -->
+  <div class="logo-governo">
+    <img src="imagens/logoGov.png" alt="Governo do Estado de São Paulo">
   </div>
 
   <main>
-    <div class="logo-metro"></div>
-    <h1>Seja Bem-Vindo, aluno!</h1>
-    <p class="lead">Acesse seus conteúdos e acompanhe seu avanço.</p>
+    <!-- Logo do Metrô -->
+    <div class="logo-metro">
+      <img src="imagens/logoMretro.png" alt="Metrô de São Paulo">
+    </div>
 
-    <div class="cards" role="list">
+    <h1>Seja Bem-Vindo, aluno!</h1>
+    <p class="lead"></p>
+
+    <div class="cards">
       <a class="card" href="#">
-        <div class="left"><i class="fa-solid fa-book-open"></i> Meus Treinamentos</div>
-        <div class="arrow"><i class="fa-solid fa-arrow-right"></i></div>
+        <div class="left"><span class="emoji">🎓</span> Meus treinamentos</div>
+        <div class="arrow">➜</div>
       </a>
+
       <a class="card" href="#">
-        <div class="left"><i class="fa-solid fa-chart-line"></i> Acompanhar Progresso</div>
-        <div class="arrow"><i class="fa-solid fa-arrow-right"></i></div>
+        <div class="left"><span class="emoji">📈</span> Acompanhar progresso</div>
+        <div class="arrow">➜</div>
       </a>
+
       <a class="card full" href="#">
-        <div class="left"><i class="fa-solid fa-graduation-cap"></i> Meus Certificados</div>
-        <div class="arrow"><i class="fa-solid fa-arrow-right"></i></div>
+        <div class="left"><span class="emoji">🏅</span> Meus certificados</div>
+        <div class="arrow">➜</div>
       </a>
     </div>
   </main>
 
   <footer class="rodape">
-    <div><i class="fa-solid fa-phone"></i> Fale conosco</div>
-    <div><i class="fa-regular fa-comment-dots"></i> Ouvidoria</div>
-    <div><i class="fa-regular fa-clock"></i> 8h às 18h</div>
-    <div><i class="fa-solid fa-envelope"></i> SMS</div>
+    <div><span class="emoji">☎️</span> Fale conosco</div>
+    <div><span class="emoji">💬</span> Ouvidoria</div>
+    <div><span class="emoji">⏰</span> 8h às 18h</div>
+    <div><span class="emoji">✉️</span> SMS</div>
   </footer>
 
+  <div vw class="enabled"><div vw-access-button class="active"></div><div vw-plugin-wrapper><div class="vw-plugin-top-wrapper"></div></div></div>
+  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+  <script> new window.VLibras.Widget('https://vlibras.gov.br/app'); </script>
 </body>
 </html>

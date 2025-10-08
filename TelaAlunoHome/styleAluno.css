@@ -1,0 +1,106 @@
+*{box-sizing:border-box}
+
+:root{
+  --blue-escuro:#002776;
+  --gray-bar:#f2f2f2;
+  --card-border:#d6d6d6;
+  --max-width:1100px;
+}
+
+body{
+  margin:0;
+  font-family:"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  color:#111;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  background:#fff;
+}
+
+header.topo{
+  background:var(--blue-escuro);
+  color:#fff;
+  padding:10px 28px;
+  font-size:28px;
+  font-weight:800;
+}
+
+.logo-governo{
+  background:#000;
+  display:flex;
+  align-items:center;
+  padding:10px 28px;
+}
+.logo-governo img{height:50px}
+
+main{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:60px 20px 70px;
+}
+.logo-metro{display:flex;align-items:center;justify-content:center;margin-top:20px}
+.logo-metro img{width:260px;height:120px;object-fit:contain}
+
+h1{margin:10px 0 6px;font-size:34px;font-weight:700;font-style:italic;color:#1b1b1b;text-align:center}
+.lead{margin:0;color:#444;font-size:15px;text-align:center}
+
+/* === GRID: 2 colunas + 1 central === */
+.cards{
+  width:100%;
+  max-width:1100px;
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:28px;
+  margin:42px auto 0;
+  padding:0 8px;
+  justify-items:center;
+}
+
+/* === card padrão === */
+.card{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  background:#fff;
+  border:1px solid var(--card-border);
+  border-radius:10px;
+  padding:22px 26px;
+  text-decoration:none;
+  color:inherit;
+  width:420px;
+  height:100px;
+  transition:box-shadow .15s,border-color .15s,transform .08s;
+}
+.card:hover{border-color:var(--blue-escuro);box-shadow:0 8px 24px rgba(2,39,109,.10);transform:translateY(-2px)}
+
+.card .left{display:flex;align-items:center;gap:10px;font-size:17px;font-weight:700;white-space:nowrap}
+.card .arrow{font-size:20px;margin-left:8px}
+.emoji{font-size:22px;line-height:1;display:inline-block;transform:translateY(1px)}
+
+/* === card central === */
+.card.full{
+  grid-column:1 / -1;         /* ocupa as duas colunas */
+  justify-self:center;        /* centraliza */
+  margin-top:10px;
+}
+
+/* === rodapé === */
+footer.rodape{
+  background:var(--gray-bar);
+  padding:34px 24px;
+  display:flex;
+  justify-content:center;
+  gap:56px;
+  align-items:center;
+  font-size:15px;
+  flex-shrink:0;
+}
+footer.rodape div{display:flex;align-items:center;gap:10px;color:#111}
+
+/* responsivo */
+@media (max-width:820px){
+  .cards{grid-template-columns:1fr;gap:20px}
+  .card{width:100%;max-width:520px}
+}

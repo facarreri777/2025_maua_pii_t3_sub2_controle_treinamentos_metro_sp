@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Acompanhamento de Progresso</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Arial", sans-serif;
+      background: #f5f5f5;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      color: #222;
+    }
+
+    header {
+      background: #0b3b8a;
+      color: #fff;
+      padding: 20px 28px;
+      font-size: 28px;
+      font-weight: 700;
+    }
+
+    /* NAV centralizada */
+    nav {
+      background: #000;
+      color: #fff;
+    }
+
+    .nav-content {
+      max-width: 100%;
+      margin: 0;
+      padding: 12px 0 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 40px;
+    }
+
+    .logo img {
+      height: 80px;
+      width: auto;
+      display: block;
+    }
+
+    .menu {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 200px;
+    }
+
+    .menu a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 16px;
+      transition: 0.2s;
+    }
+
+    .menu a:hover {
+      color: #a8c4ff;
+    }
+
+    .menu strong {
+      font-weight: 700;
+    }
+
+    /* Container, filtros e tabela */
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 28px auto;
+      flex: 1;
+    }
+
+    .filtros {
+      display: flex;
+      align-items: flex-end;
+      gap: 22px;
+      margin-bottom: 26px;
+    }
+
+    .filtro {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .filtro label {
+      font-size: 14px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    select, .btn {
+      height: 44px;
+      padding: 0 14px;
+      font-size: 15px;
+      border-radius: 8px;
+      border: 1px solid #cfcfcf;
+      background: #fff;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .filtro select {
+      width: 240px;
+    }
+
+    .btn {
+      cursor: pointer;
+      font-weight: 700;
+      min-width: 90px;
+      justify-content: center;
+    }
+
+    .filtrar {
+      background: #0b3b8a;
+      color: #fff;
+      border: none;
+    }
+
+    .limpar {
+      background: #fff;
+      color: #0b3b8a;
+      border: 1px solid #0b3b8a;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      box-shadow: 0 0 0 1px rgba(0,0,0,0.03);
+    }
+
+    thead th {
+      background: #dcdcdc;
+      text-align: left;
+      padding: 14px;
+      font-weight: 700;
+    }
+
+    tbody td {
+      padding: 14px;
+      border-top: 1px solid #eee;
+    }
+
+    .progress-container {
+      width: 170px;
+      height: 18px;
+      background: #e6e6e6;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .progress {
+      height: 100%;
+      background: #6b63c2;
+      border-radius: 20px;
+    }
+
+    .status { font-weight: 700; }
+    .andamento { color: #0b3b8a; }
+    .concluido { color: #18823a; }
+    .pendente { color: #333; }
+    .reprovado { color: #d41e1e; }
+
+    footer {
+      background: #0b3b8a;
+      color: #fff;
+      text-align: center;
+      padding: 16px 12px;
+      font-size: 14px;
+      margin-top: auto;
+    }
+
+    @media (max-width: 780px) {
+      .filtros {
+        flex-direction: column;
+        gap: 12px;
+      }
+      .filtro select, .btn { width: 100%; }
+      .menu {
+        gap: 22px;
+        position: static;
+        margin: 10px auto 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>Acompanhamento de progresso</header>
+
+  <nav>
+    <div class="nav-content">
+      <div class="logo">
+        <img src="./imagens/logo_de_sp.png" alt="Logo do Governo de São Paulo">
+      </div>
+      <div class="menu">
+        <a href="#">Home</a>
+        <a href="#"><strong>Treinamentos</strong></a>
+        <a href="#">Contato</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <!-- filtros -->
+    <div class="filtros">
+      <div class="filtro">
+        <label for="treinamentos">Treinamentos</label>
+        <select id="treinamentos" name="treinamentos">
+          <option>Treinamentos</option>
+        </select>
+      </div>
+
+      <div class="filtro">
+        <label for="departamento">Setor/Departamento</label>
+        <select id="departamento" name="departamento">
+          <option>Agente</option>
+        </select>
+      </div>
+
+      <button class="btn filtrar" type="button">Filtrar</button>
+      <button class="btn limpar" type="button">Limpar</button>
+    </div>
+
+    <!-- tabela -->
+    <table>
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>E-mail</th>
+          <th>Setor/cargo</th>
+          <th>Presença</th>
+          <th>Progresso</th>
+          <th>Status</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Pedro Almeida</td>
+          <td>or.pedro@empresa</td>
+          <td>Financeiro</td>
+          <td>100%</td>
+          <td><div class="progress-container"><div class="progress" style="width:100%"></div></div></td>
+          <td class="status andamento">Em andamento</td>
+          <td>Certificado</td>
+        </tr>
+        <tr>
+          <td>Ana Souza</td>
+          <td>ana.souza@empresa</td>
+          <td>Vendas</td>
+          <td>90%</td>
+          <td><div class="progress-container"><div class="progress" style="width:90%"></div></div></td>
+          <td class="status concluido">Concluído</td>
+          <td>Certificado</td>
+        </tr>
+        <tr>
+          <td>João Santos</td>
+          <td>joao@empresa.com</td>
+          <td>RH</td>
+          <td>80%</td>
+          <td><div class="progress-container"><div class="progress" style="width:80%"></div></div></td>
+          <td class="status pendente">Pendente</td>
+          <td>Certificado</td>
+        </tr>
+        <tr>
+          <td>Maria Rodrigues</td>
+          <td>ma.rod@empresa</td>
+          <td>Financeiro</td>
+          <td>75%</td>
+          <td><div class="progress-container"><div class="progress" style="width:75%"></div></div></td>
+          <td class="status pendente">Pendente</td>
+          <td>Certificado</td>
+        </tr>
+        <tr>
+          <td>José Oliveira</td>
+          <td>jose.oli@empresa</td>
+          <td>Operações</td>
+          <td>30%</td>
+          <td><div class="progress-container"><div class="progress" style="width:30%"></div></div></td>
+          <td class="status reprovado">Reprovado</td>
+          <td>Certificado</td>
+        </tr>
+        <tr>
+          <td>Mateus Pereira</td>
+          <td>mateus.pe@empresa</td>
+          <td>Operações</td>
+          <td>20%</td>
+          <td><div class="progress-container"><div class="progress" style="width:20%"></div></div></td>
+          <td class="status reprovado">Reprovado</td>
+          <td>Certificado</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <footer>Todos os direitos reservados.</footer>
+</body>
+</html>

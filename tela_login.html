@@ -1,214 +1,60 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Login (Instrutor/aluno)</title>
 
-<style>
-  :root {
-    --azul-fundo: #001b7a;
-    --azul-escuro: #00246a;
-    --azul-claro: #a0b0f0;
-    --branco: #ffffff;
-    --cinza-input: #f3f3f3;
-  }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Login (Instrutor/aluno)</title>
+    <link rel="stylesheet" href="tela_login.css">
 
-  * {
-    box-sizing: border-box;
-    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
-  }
-
-  body {
-    margin: 0;
-    background-color: var(--azul-fundo);
-    color: var(--branco);
-    height: 100vh;
-  }
-
-  /* Moldura dupla branca */
-  .borda-externa {
-    position: absolute;
-    top: 35px;
-    left: 35px;
-    right: 35px;
-    bottom: 35px;
-    border: 4px solid var(--branco);
-  }
-
-  .borda-interna {
-    position: absolute;
-    top: 55px;
-    left: 55px;
-    right: 55px;
-    bottom: 55px;
-    border: 2px solid var(--branco);
-  }
-
-  /* Título no topo */
-  h1 {
-    position: absolute;
-    top: 50px;
-    left: 80px;
-    font-size: 24px;
-    font-weight: bold;
-    margin: 0;
-  }
-
-  /* Caixa de login */
-  .card {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: var(--branco);
-    color: var(--azul-escuro);
-    width: 360px;
-    border-radius: 12px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-    padding: 0 0 30px 0;
-  }
-
-  /* Cabeçalho com logo */
-  .card-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 18px 22px 10px 22px;
-  }
-
-  .card-header img {
-    height: 40px;
-  }
-
-  .card-header h2 {
-    font-size: 16px;
-    font-weight: bold;
-    margin: 0;
-  }
-
-  /* Linha azul abaixo do cabeçalho */
-  .linha {
-    height: 10px;
-    background-color: var(--azul-claro);
-  }
-
-  /* Campos */
-  .form {
-    padding: 25px 30px 0 30px;
-  }
-
-  .input-box {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-
-  .input-icon {
-    width: 45px;
-    height: 45px;
-    background-color: var(--azul-escuro);
-    border: 1px solid #d4dbff;
-    border-right: none;
-    border-radius: 10px 0 0 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .input-icon svg {
-    fill: var(--branco);
-    width: 20px;
-    height: 20px;
-  }
-
-  .input-field {
-    flex: 1;
-    height: 45px;
-    border: 2px solid var(--azul-claro);
-    border-left: none;
-    border-radius: 0 10px 10px 0;
-    padding: 0 10px;
-    background-color: var(--cinza-input);
-    font-size: 14px;
-    color: var(--azul-escuro);
-  }
-
-  .input-field:focus {
-    outline: none;
-    background-color: var(--branco);
-    border-color: var(--azul-escuro);
-  }
-
-  .input-field::placeholder {
-    color: #7d84a2;
-  }
-
-  /* Botão */
-  .btn {
-    display: block;
-    width: 85%;
-    margin: 10px auto 0 auto;
-    background-color: var(--azul-fundo);
-    color: var(--branco);
-    border: none;
-    border-radius: 10px;
-    font-size: 16px;
-    font-weight: bold;
-    padding: 12px 0;
-    cursor: pointer;
-  }
-
-  .btn:hover {
-    background-color: var(--azul-escuro);
-  }
-
-</style>
 </head>
+
 <body>
 
-  <!-- Bordas duplas -->
-  <div class="borda-externa"></div>
-  <div class="borda-interna"></div>
+    <!-- Bordas duplas -->
+    <div class="borda-externa"></div>
+    <div class="borda-interna"></div>
 
-  <!-- Título -->
-  <h1>Login (Instrutor/aluno)</h1>
+    <!-- Título -->
+    <h1>Login (Instrutor/aluno)</h1>
 
-  <!-- Caixa de Login -->
-  <div class="card">
-    <div class="card-header">
-      <img src="logoMetro.png" alt="Logo Metrô">
-      <h2>Controle de<br>Treinamentos</h2>
-    </div>
+    <!-- Caixa de Login -->
+    <div class="card">
+        <div class="card-header">
+            <img src="logoMetro.png" alt="Logo Metrô">
+            <h2>Controle de<br>Treinamentos</h2>
+        </div>
 
-    <div class="linha"></div>
+        <div class="linha"></div>
 
-    <div class="form">
-      <!-- Campo Usuário -->
-      <div class="input-box">
-        <div class="input-icon">
-          <!-- Ícone de usuário -->
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <div class="form">
+            <!-- Campo Usuário -->
+            <div class="input-box">
+                <div class="input-icon">
+                    <!-- Ícone de usuário -->
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
             <path d="M12 12a5 5 0 1 0-.001-10.001A5 5 0 0 0 12 12zm0 2c-4.418 0-8 2.239-8 5v1h16v-1c0-2.761-3.582-5-8-5z"/>
           </svg>
-        </div>
-        <input type="text" class="input-field" placeholder="Usuário" />
-      </div>
+                </div>
+                <input type="text" class="input-field" placeholder="Usuário" />
+            </div>
 
-      <!-- Campo Senha -->
-      <div class="input-box">
-        <div class="input-icon">
-          <!-- Ícone de cadeado -->
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <!-- Campo Senha -->
+            <div class="input-box">
+                <div class="input-icon">
+                    <!-- Ícone de cadeado -->
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
             <path d="M17 8h-1V6a4 4 0 0 0-8 0v2H7a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2zm-7-2a2 2 0 0 1 4 0v2h-4V6zm7 12H7v-8h10v8z"/>
           </svg>
-        </div>
-        <input type="password" class="input-field" placeholder="Senha" />
-      </div>
+                </div>
+                <input type="password" class="input-field" placeholder="Senha" />
+            </div>
 
-      <button class="btn">Acessar</button>
+            <button class="btn">Acessar</button>
+        </div>
     </div>
-  </div>
 
 </body>
+
 </html>

@@ -1,56 +1,268 @@
 ﻿<!doctype html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Metrô - Dashboard</title>
- <link rel="stylesheet" href="styleAluno.css?v=2">
+
+    <!-- Ícone do Metrô de São Paulo (favicon) -->
+    <link rel="icon" type="image/png"
+        href="https://www.metro.sp.gov.br/wp-content/themes/metrosp/assets/images/favicon.png">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        :root {
+            --blue-escuro: #002776;
+            --gray-bar: #f2f2f2;
+            --card-border: #d6d6d6;
+            --max-width: 1000px;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            color: #111;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: #ffffff;
+        }
+
+        header.topo {
+            background: var(--blue-escuro);
+            color: #fff;
+            padding: 18px 20px;
+            font-size: 26px;
+            font-weight: 700;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .btn-logout {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 8px 15px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-logout:hover {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Logo do Governo de SP (mantida, sem faixa preta) */
+        .logo-governo {
+            background-color: #000;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 10px 30px;
+        }
+
+        .logo-governo img {
+            height: 60px;
+        }
+
+        .logo-metro {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 40px;
+        }
+
+        .logo-metro img {
+            width: 240px;
+            height: 110px;
+            object-fit: contain;
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 60px 20px;
+        }
+
+        h1 {
+            margin: 6px 0;
+            font-size: 32px;
+            font-weight: 600;
+            font-style: italic;
+        }
+
+        p.lead {
+            margin: 0;
+            color: #444;
+            font-size: 15px;
+        }
+
+        /* Layout específico para 3 cards: 2 em cima, 1 embaixo centralizado */
+        .cards {
+            width: 100%;
+            max-width: var(--max-width);
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 50px;
+            margin: 40px auto 0;
+            padding: 0 10px;
+        }
+
+        .card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #fff;
+            border: 1px solid var(--card-border);
+            border-radius: 6px;
+            padding: 18px 20px;
+            text-decoration: none;
+            color: inherit;
+            transition: box-shadow .15s, border-color .15s, transform .08s;
+        }
+
+        .card:hover {
+            border-color: var(--blue-escuro);
+            box-shadow: 0 6px 20px rgba(2, 39, 109, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .card .left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .card .left i {
+            font-size: 22px;
+            color: var(--blue-escuro);
+            min-width: 28px;
+            text-align: center;
+        }
+
+        .card .arrow {
+            font-size: 18px;
+            color: var(--blue-escuro);
+        }
+
+        /* Card central (terceiro card que ocupa as duas colunas) */
+        .card.full {
+            grid-column: 1 / -1;
+            justify-self: center;
+            margin-top: 10px;
+            padding: 18px 20px;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        footer.rodape {
+            background: var(--gray-bar);
+            padding: 30px 20px;
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            align-items: center;
+            font-size: 15px;
+            flex-shrink: 0;
+            margin-top: 50px;
+        }
+
+        footer.rodape div {
+          display: flex;
+          align-items: center;
+            gap: 10px;
+            color: #111;
+        }
+
+        footer.rodape a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        footer.rodape a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
 
 <body>
 
-  <header class="topo">Home aluno</header>
+    <header class="topo">
+        Home aluno
+        <button class="btn-logout" onclick="logout()" title="Sair do sistema">
+            <i class="fa-solid fa-sign-out-alt"></i> Sair
+        </button>
+    </header>
 
-  <!-- Logo do Governo -->
-  <div class="logo-governo">
-    <img src="imagens/logoGov.png" alt="Governo do Estado de São Paulo">
-  </div>
-
-  <main>
-    <!-- Logo do Metrô -->
-    <div class="logo-metro">
-      <img src="imagens/logoMretro.png" alt="Metrô de São Paulo">
+    <!-- Apenas a logo do Governo -->
+    <div class="logo-governo">
+        <img src="imagens/logoGov.png" alt="Governo do Estado de São Paulo">
     </div>
 
-    <h1>Seja Bem-Vindo, aluno!</h1>
-    <p class="lead"></p>
+    <main>
+        <div class="logo-metro">
+            <img src="imagens/logoMretro.png" alt="Metrô de São Paulo">
+        </div>
 
-    <div class="cards">
-      <a class="card" href="#">
-        <div class="left"><span class="emoji">🎓</span> Meus treinamentos</div>
-        <div class="arrow">➜</div>
-      </a>
+        <h1>Seja Bem-Vindo, Aluno!</h1>
 
-      <a class="card" href="#">
-        <div class="left"><span class="emoji">📈</span> Acompanhar progresso</div>
-        <div class="arrow">➜</div>
-      </a>
+        <div class="cards" role="list">
+            <a class="card" href="../../treinamentos/treinamentos.html">
+                <div class="left"><i class="fa-solid fa-graduation-cap"></i> Meus Treinamentos</div>
+                <div class="arrow"><i class="fa-solid fa-arrow-right"></i></div>
+            </a>
+            <a class="card" href="../../2025_maua_pii_t3_sub2_controle_treinamentos_metro_sp-feat-tela-acompanhamento/acompanhamento.html">
+                <div class="left"><i class="fa-solid fa-chart-bar"></i> Acompanhar Progresso</div>
+                <div class="arrow"><i class="fa-solid fa-arrow-right"></i></div>
+            </a>
+            <a class="card full" href="../../certificados/certificados.html">
+                <div class="left"><i class="fa-solid fa-certificate"></i> Meus Certificados</div>
+                <div class="arrow"><i class="fa-solid fa-arrow-right"></i></div>
+            </a>
+        </div>
+    </main>
 
-      <a class="card full" href="#">
-        <div class="left"><span class="emoji">🏅</span> Meus certificados</div>
-        <div class="arrow">➜</div>
-      </a>
+    <footer class="rodape">
+        <a href="https://www.metro.sp.gov.br/atendimento/fale-conosco.aspx" target="_blank">
+            <div><i class="fa-solid fa-phone"></i> Fale conosco</div>
+        </a>
+        <a href="https://www.metro.sp.gov.br/atendimento/ouvidoria.aspx" target="_blank">
+            <div><i class="fa-regular fa-comment-dots"></i> Ouvidoria</div>
+        </a>
+        <div><i class="fa-regular fa-clock"></i> 8h às 18h</div>
+        <a href="https://www.metro.sp.gov.br/atendimento/fale-conosco.aspx" target="_blank">
+            <div><i class="fa-solid fa-envelope"></i> SMS</div>
+        </a>
+    </footer>
+
+    <!-- VLibras -->
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
     </div>
-  </main>
 
-  <footer class="rodape">
-    <div><span class="emoji">☎️</span> Fale conosco</div>
-    <div><span class="emoji">💬</span> Ouvidoria</div>
-    <div><span class="emoji">⏰</span> 8h às 18h</div>
-    <div><span class="emoji">✉️</span> SMS</div>
-  </footer>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script src="aluno_home.js"></script>
 
-  <div vw class="enabled"><div vw-access-button class="active"></div><div vw-plugin-wrapper><div class="vw-plugin-top-wrapper"></div></div></div>
-  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
-  <script> new window.VLibras.Widget('https://vlibras.gov.br/app'); </script>
 </body>
 </html>

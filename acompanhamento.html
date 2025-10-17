@@ -1,79 +1,588 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-br">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Acompanhamento de Progresso</title>
-  <link rel="stylesheet" href="styleAcompanhamento.css">
-</head>
-<body>
-  <!-- Topo -->
-  <div class="topbar">
-    <div class="hero"><h1>Acompanhamento de progresso</h1></div>
-    <nav class="nav">
-      <div class="nav-left">
-      <img src="./imagens/logoGov.png" alt="Governo do Estado de São Paulo">
-      </div>
-      <div class="nav-center">
-        <a href="#" class="active">Home</a>
-        <a href="#">Contato</a>
-      </div>
-      <div></div>
-    </nav>
-  </div>
 
-  <main class="wrap">
-    <!-- LOGO do Metrô -->
-    <div class="hero-logo">
-     <img src="./imagens/logoMretro.png" alt="Metrô de São Paulo">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Acompanhamento de Progresso</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- CSS Base incorporado -->
+    <style>
+        /* ===== CSS BASE - ESTILOS COMUNS ===== */
+        :root {
+            --blue-escuro: #002776;
+            --blue-claro: #0066cc;
+            --gray-light: #f8f9fa;
+            --gray-dark: #6c757d;
+            --gray-bar: #f2f2f2;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            background: #ffffff;
+        }
+
+        header.topo {
+            background: var(--blue-escuro);
+            color: #fff;
+            padding: 18px 20px;
+            font-size: 26px;
+            font-weight: 700;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-voltar {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 20px;
+            position: absolute;
+            top: 170px;
+            left:20px;
+            z-index: 10;
+        }
+
+        .btn-voltar:hover {
+            background: #5a6268;
+        }
+
+        .btn-logout {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 8px 15px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-logout:hover {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Logo do Governo de SP */
+        .logo-governo {
+            background-color: #000;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 10px 30px;
+        }
+
+        .logo-governo img {
+            height: 60px;
+        }
+
+
+        main {
+            flex: 1;
+            padding: 30px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        h1 {
+            color: var(--blue-escuro);
+            font-size: 28px;
+            margin: 40px 0 10px 0;
+        }
+
+        p.lead {
+            color: var(--gray-dark);
+            font-size: 16px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e9ecef;
+        }
+
+        .card h2 {
+            color: var(--blue-escuro);
+            font-size: 22px;
+            margin-bottom: 20px;
+        }
+
+        .filters {
+            display: grid;
+            grid-template-columns: 1fr 1fr auto auto;
+            gap: 20px;
+            align-items: end;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .field label {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--blue-escuro);
+        }
+
+        .field select {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            background: white;
+        }
+
+        .field select:focus {
+            outline: none;
+            border-color: var(--blue-escuro);
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn.primary {
+            background: var(--blue-escuro);
+            color: white;
+        }
+
+        .btn.primary:hover {
+            background: var(--blue-claro);
+        }
+
+        .btn.ghost {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn.ghost:hover {
+            background: #5a6268;
+        }
+
+        .table-card {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        th {
+            background: var(--gray-light);
+            font-weight: 600;
+            color: var(--blue-escuro);
+        }
+
+        tr:hover {
+            background: #f8f9fa;
+        }
+
+        .user-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .info-item {
+            padding: 10px;
+            background: var(--gray-light);
+            border-radius: 8px;
+            border-left: 4px solid var(--blue-escuro);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, var(--blue-escuro), var(--blue-claro));
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .treinamentos-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .treinamento-item {
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+        }
+
+        .treinamento-item:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .treinamento-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .treinamento-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--blue-escuro);
+            margin: 0;
+        }
+
+        .treinamento-status {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .treinamento-status.completed {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .treinamento-status.in-progress {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .treinamento-status.not-started {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .treinamento-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .detail-item {
+            font-size: 14px;
+        }
+
+        .detail-item strong {
+            color: var(--blue-escuro);
+        }
+
+        .progress-container {
+            margin-top: 15px;
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .progress-text {
+            font-size: 14px;
+            color: var(--gray-dark);
+        }
+
+        .progress-percentage {
+            font-weight: 600;
+            color: var(--blue-escuro);
+        }
+
+        .empty {
+            text-align: center;
+            padding: 40px;
+            color: var(--gray-dark);
+            font-style: italic;
+        }
+
+        .progress-bar {
+            width: 100px;
+            height: 8px;
+            background: #e9ecef;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--blue-claro);
+            transition: width 0.3s;
+        }
+
+        .status {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status.completed {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status.in-progress {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status.not-started {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        footer.rodape {
+            background: var(--gray-bar);
+            padding: 30px 20px;
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            align-items: center;
+            font-size: 15px;
+            flex-shrink: 0;
+            margin-top: 50px;
+        }
+
+        footer.rodape div {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #111;
+        }
+
+        footer.rodape a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        footer.rodape a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+
+            .user-info {
+                grid-template-columns: 1fr;
+            }
+
+            .treinamento-details {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            footer.rodape {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .stat-number {
+                font-size: 24px;
+            }
+
+            .treinamento-header {
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
+            }
+
+            .logo-governo {
+                padding: 10px 20px;
+            }
+
+            .logo-metro {
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="topo">
+        Acompanhar Progresso
+        <div class="header-buttons">
+            <button class="btn-logout" onclick="logout()" title="Sair do sistema">
+                <i class="fa-solid fa-sign-out-alt"></i> Sair
+            </button>
+      </div>
+    </header>
+
+    <!-- Logo do Governo -->
+    <div class="logo-governo">
+        <img src="imagens/logoGov.png" alt="Governo do Estado de São Paulo">
     </div>
 
-    <!-- Filtros -->
-    <section class="card">
-      <h2>Filtros rápidos</h2>
-      <div class="filters">
-        <div class="field">
-          <label for="fTreinamento">Treinamentos</label>
-          <select id="fTreinamento"><option value="">Todos</option></select>
-        </div>
-        <div class="field">
-          <label for="fSetor">Setor/Departamento</label>
-          <select id="fSetor"><option value="">Todos</option></select>
-        </div>
-        <div class="actions">
-          <button class="btn primary" type="button">Filtrar</button>
-          <button class="btn ghost" type="button">Limpar</button>
-        </div>
-        <div></div>
-      </div>
-    </section>
+    <main class="main-content">
+        <h1>Meu Progresso nos Treinamentos</h1>
+        <p class="lead">Acompanhe seu progresso individual nos cursos e treinamentos</p>
+        
+        <a href="../2025_maua_pii_t3_sub2_controle_treinamentos_metro_sp-tela-aluno-home/TelaAlunoHome/aluno_home.html" class="btn-voltar">
+            <i class="fa-solid fa-arrow-left"></i> Voltar ao Dashboard
+        </a>
 
-    <!-- Tabela -->
-    <section class="card table-card">
-      <div>
-        <table>
-          <thead>
-            <tr>
-              <th>Nome</th>
-              <th>E-mail</th>
-              <th>Setor/Cargo</th>
-              <th>Presença</th>
-              <th>Progresso</th>
-              <th>Status</th>
-              <th>Ações</th>
-            </tr>
-          </thead>
-          <tbody id="tbody"></tbody>
-        </table>
-      </div>
-      <div class="empty">
-        Nenhum aluno cadastrado ainda. Adicione alunos na página de cadastro para vê-los aqui.
-      </div>
-    </section>
+        <!-- Informações do Aluno -->
+        <div class="card">
+            <h2>👤 Minhas Informações</h2>
+            <div class="user-info">
+                <div class="info-item">
+                    <strong>Nome:</strong> <span id="userName">Carregando...</span>
+                </div>
+                <div class="info-item">
+                    <strong>RG Metro:</strong> <span id="userRG">Carregando...</span>
+                </div>
+                <div class="info-item">
+                    <strong>Setor:</strong> <span id="userSetor">Carregando...</span>
+                </div>
+                <div class="info-item">
+                    <strong>Cargo:</strong> <span id="userCargo">Carregando...</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Estatísticas Gerais -->
+        <div class="card">
+            <h2>📈 Minhas Estatísticas</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalTreinamentos">0</div>
+                    <div class="stat-label">Treinamentos Atribuídos</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="treinamentosConcluidos">0</div>
+                    <div class="stat-label">Concluídos</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="treinamentosEmAndamento">0</div>
+                    <div class="stat-label">Em Andamento</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="porcentagemGeral">0%</div>
+                    <div class="stat-label">Progresso Geral</div>
+                </div>
+        </div>
+        </div>
+
+        <!-- Lista de Treinamentos -->
+        <div class="card">
+            <h2>📚 Meus Treinamentos</h2>
+            <div class="treinamentos-container" id="treinamentosContainer">
+                <!-- Treinamentos serão carregados dinamicamente -->
+            </div>
+            <div class="empty" id="emptyMessage" style="display: none;">
+                Nenhum treinamento atribuído ainda. Entre em contato com seu supervisor.
+            </div>
+        </div>
   </main>
 
-  <footer class="footer">
-    <strong>Metrô SP —</strong> Todos os direitos reservados.
+    <footer class="rodape">
+        <div><i class="fa-solid fa-phone"></i> Fale conosco</div>
+        <div><i class="fa-regular fa-comment-dots"></i> Ouvidoria</div>
+        <div><i class="fa-regular fa-clock"></i> 8h às 18h</div>
+        <div><i class="fa-solid fa-envelope"></i> SMS</div>
   </footer>
+
+    <script src="acompanhamento.js"></script>
+    
+    <!-- Script de inicialização adicional -->
+    <script>
+        // Garantir que a página carregue mesmo se houver erros
+        console.log('Script de inicialização executado');
+        
+        // Aguardar um pouco e tentar carregar novamente se necessário
+        setTimeout(() => {
+            if (typeof inicializarDadosExemplo === 'function') {
+                inicializarDadosExemplo();
+            }
+            if (typeof carregarInfoUsuario === 'function') {
+                console.log('Executando carregamento após timeout...');
+                carregarInfoUsuario().then(() => {
+                    if (typeof atualizarEstatisticas === 'function') atualizarEstatisticas();
+                    if (typeof carregarTreinamentos === 'function') carregarTreinamentos();
+                }).catch(error => {
+                    console.error('Erro no carregamento após timeout:', error);
+                });
+            }
+        }, 1000);
+    </script>
+
 </body>
 </html>

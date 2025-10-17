@@ -1,0 +1,260 @@
+/* ===== CSS ESPECÍFICO DA PÁGINA DE CERTIFICADOS ===== */
+
+h1 {
+    margin: 40px 0 6px;
+    font-size: 34px;
+    font-weight: 700;
+    font-style: italic;
+    color: #1b1b1b;
+    text-align: center;
+}
+
+.lead {
+    margin: 0;
+    color: #444;
+    font-size: 15px;
+    text-align: center;
+}
+
+/* Cards */
+.card {
+    background: #fff;
+    border: 1px solid var(--card-border);
+    border-radius: 10px;
+    padding: 25px;
+    margin: 20px auto;
+    box-shadow: 0 2px 0 rgba(0,0,0,.02);
+    max-width: 800px;
+}
+
+.card h2 {
+    margin: 0 0 20px 0;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--blue-escuro);
+}
+
+/* Seção de Filtros */
+.filter-row {
+    display: flex;
+    gap: 20px;
+    align-items: end;
+}
+
+.filter-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.filter-group label {
+    font-weight: 600;
+    color: #333;
+    font-size: 14px;
+}
+
+.filter-select {
+    padding: 10px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    background: white;
+    font-size: 14px;
+    color: #495057;
+}
+
+.filter-select:focus {
+    outline: none;
+    border-color: var(--blue-escuro);
+    box-shadow: 0 0 0 2px rgba(0, 39, 118, 0.1);
+}
+
+.btn-filtrar {
+    background: var(--blue-escuro);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn-filtrar:hover {
+    background: #001d5c;
+}
+
+/* Container de Certificados */
+.certificados-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 15px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.certificado-item {
+    background: white;
+    border: 1px solid #e9ecef;
+    border-radius: 6px;
+    padding: 12px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s;
+    height: fit-content;
+    min-height: 140px;
+    text-align: center;
+}
+
+.certificado-item:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.certificado-header {
+    margin-bottom: 10px;
+}
+
+.certificado-icon {
+    font-size: 32px;
+    color: #28a745;
+    margin-bottom: 8px;
+}
+
+.certificado-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--blue-escuro);
+    margin: 0;
+}
+
+.certificado-details {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 10px;
+}
+
+.detail-item {
+    font-size: 12px;
+    color: #666;
+}
+
+.detail-item strong {
+    color: #333;
+}
+
+.certificado-actions {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+}
+
+.btn-action {
+    background: var(--blue-escuro);
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 12px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.btn-action:hover {
+    background: #001d5c;
+    transform: translateY(-1px);
+}
+
+.btn-action.btn-download {
+    background: #28a745;
+}
+
+.btn-action.btn-download:hover {
+    background: #218838;
+}
+
+.btn-action.btn-view {
+    background: #17a2b8;
+}
+
+.btn-action.btn-view:hover {
+    background: #138496;
+}
+
+.empty {
+    text-align: center;
+    padding: 40px 20px;
+    color: #666;
+    font-style: italic;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #666;
+}
+
+.empty-state i {
+    font-size: 64px;
+    color: #ddd;
+    margin-bottom: 20px;
+}
+
+.empty-state h3 {
+    color: #333;
+    margin-bottom: 15px;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.empty-state p {
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+/* Loading e Empty States */
+.loading {
+    text-align: center;
+    padding: 40px;
+    color: #666;
+}
+
+.loading i {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.empty i {
+    font-size: 48px;
+    color: #ccc;
+    margin-bottom: 20px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .filter-row {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .certificados-container {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        max-width: 100%;
+        padding: 0 10px;
+    }
+    
+    .card {
+        max-width: 100%;
+        margin: 20px 10px;
+    }
+    
+    .certificados-actions {
+        flex-direction: column;
+    }
+}

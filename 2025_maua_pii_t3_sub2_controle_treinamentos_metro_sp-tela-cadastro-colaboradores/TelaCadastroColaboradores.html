@@ -15,6 +15,9 @@
     
     <!-- CSS Base -->
     <link rel="stylesheet" href="../styles/base.css">
+    
+    <!-- Sistema de Notificações -->
+    <script src="../styles/notifications.js"></script>
 
   <style>
         * {
@@ -38,16 +41,6 @@
             background: #ffffff;
         }
 
-        header.topo {
-            background: var(--blue-escuro);
-            color: #fff;
-            padding: 18px 20px;
-            font-size: 26px;
-            font-weight: 700;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
 
         .btn-logout {
             background: rgba(255, 255, 255, 0.2);
@@ -76,47 +69,73 @@
             justify-content: flex-start;
             align-items: center;
             padding: 10px 30px;
+            min-height: 70px;
         }
 
         .logo-governo img {
-            height: 60px;
+            height: 55px;
         }
 
-        .logo-metro {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-top: 40px;
-        }
-
-        .logo-metro img {
-            width: 240px;
-            height: 110px;
-            object-fit: contain;
-        }
 
         main {
             flex: 1;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 60px 20px;
+            padding: 20px;
+        }
+
+        /* ===== HEADER DA PÁGINA ===== */
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 12px;
+            border: 1px solid #dee2e6;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .header-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--blue-escuro) 0%, #1e3a8a 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            box-shadow: 0 8px 25px rgba(0, 39, 118, 0.2);
+        }
+
+        .header-icon i {
+            font-size: 32px;
+            color: white;
         }
 
         h1 {
-            margin: 6px 0 30px 0;
-            font-size: 32px;
-            font-weight: 600;
-            font-style: italic;
-            color: #111;
+            margin: 0 0 10px;
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--blue-escuro);
+            text-align: center;
+        }
+
+        .lead {
+            margin: 0;
+            color: #6c757d;
+            font-size: 16px;
+            text-align: center;
+            font-weight: 500;
         }
 
         /* Formulário de Cadastro */
         .cadastro-container {
             width: 100%;
             max-width: 600px;
-            background: #fff;
-            border: 1px solid var(--card-border);
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
             border-radius: 12px;
             padding: 40px;
             box-shadow: 0 6px 20px rgba(2, 39, 109, 0.08);
@@ -129,25 +148,30 @@
 
         .form-group label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             font-weight: 600;
-            color: #333;
-            font-size: 16px;
+            color: var(--blue-escuro);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .form-group input, .form-group select {
             width: 100%;
-            padding: 15px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
+            padding: 14px 18px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
             font-size: 16px;
-            transition: border-color 0.3s;
-            background: #fff;
+            transition: all 0.3s ease;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
         }
 
         .form-group input:focus, .form-group select:focus {
             outline: none;
             border-color: var(--blue-escuro);
+            box-shadow: 0 0 0 3px rgba(0, 39, 118, 0.1);
+            transform: translateY(-1px);
         }
 
         .form-row {
@@ -204,24 +228,6 @@
             background: #5a6268;
         }
 
-        .btn-voltar {
-            background: #6c757d;
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.3s;
-            text-decoration: none;
-            display: inline-block;
-            margin-bottom: 20px;
-        }
-
-        .btn-voltar:hover {
-            background: #5a6268;
-        }
 
         footer.rodape {
             background: var(--gray-bar);
@@ -599,12 +605,17 @@
     </div>
 
     <main class="main-content">
-
         <a href="../2025_maua_pii_t3_sub2_controle_treinamentos_metro_sp-tela-home/tela_home.html" class="btn-voltar">
             <i class="fa-solid fa-arrow-left"></i> Voltar ao Dashboard
         </a>
 
-        <h1>Cadastrar Novo Colaborador</h1>
+        <div class="page-header">
+            <div class="header-icon">
+                <i class="fa-solid fa-user-plus"></i>
+            </div>
+            <h1>Cadastrar Novo Colaborador</h1>
+            <p class="lead">Cadastre novos colaboradores no sistema do Metrô SP</p>
+        </div>
 
         <div class="cadastro-container">
             <form id="cadastroForm">

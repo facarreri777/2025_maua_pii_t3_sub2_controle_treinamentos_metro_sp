@@ -12,6 +12,31 @@
   --btn-green:#38d06f;
 }
 
+/* ===== BOTÃO VOLTAR ===== */
+.btn-voltar {
+    background: #6c757d;
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 14px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+     margin: 20px 0 20px 10px; 
+    position: relative;
+    z-index: 10;
+}
+
+.btn-voltar:hover {
+    background: #5a6268;
+    color: #fff;
+    text-decoration: none;
+}
+
 *{box-sizing:border-box}
 
 body{
@@ -27,18 +52,6 @@ body{
 /* ===== containers ===== */
 /* título no canto ESQUERDO (garante que não centralize) */
 /* ===== TOPO AZUL (100% centralizado) ===== */
-header.topo{
-  background:#002776;           /* azul chapado no topo */
-  color:#fff;
-  height:60px;
-  display:flex;
-  align-items:center;
-}
-header.topo .wrap{
-  display:flex;
-  align-items:center;
-  justify-content:center;       /* centraliza o texto */
-}
 .titulo-site{
   font-size:26px;
   font-weight:800;

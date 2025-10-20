@@ -40,7 +40,7 @@ function carregarDadosAluno() {
     if (user.nome && user.nome.trim() !== '') {
         document.querySelector('h1').textContent = `Seja Bem-Vindo, ${user.nome}!`;
     } else {
-        document.querySelector('h1').textContent = 'Seja Bem-Vindo, Usuário!';
+        document.querySelector('h1').textContent = 'Seja Bem-Vindo!';
     }
 }
 

@@ -1,48 +1,132 @@
 /* ===== CSS ESPECÍFICO DA PÁGINA DE CERTIFICADOS ===== */
 
-h1 {
-    margin: 40px 0 6px;
-    font-size: 34px;
-    font-weight: 700;
-    font-style: italic;
-    color: #1b1b1b;
-    text-align: center;
+:root {
+    --blue-escuro: #002776;
+    --gray-bar: #f2f2f2;
+    --card-border: #d6d6d6;
+    --max-width: 1000px;
+    --line: #d7dbe2;
+    --field: #f7f8fb;
+    --txt-muted: #6b7280;
+    --btn-blue: #2f3a8f;
+    --btn-green: #38d06f;
 }
 
-.lead {
+/* ===== LAYOUT PRINCIPAL ===== */
+body {
     margin: 0;
-    color: #444;
-    font-size: 15px;
-    text-align: center;
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #111;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
 }
 
-/* Cards */
+/* ===== LOGO DO GOVERNO ===== */
+.logo-governo {
+    background-color: #000;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 10px 30px;
+    min-height: 70px;
+}
+
+.logo-governo img {
+    height: 55px;
+    width: auto;
+}
+
+
+.btn-logout {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 8px 15px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-logout:hover {
+    background: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* ===== CARD CENTRAL ===== */
 .card {
+    width: 95%;
+    max-width: 1000px;
+    margin: 20px auto 0;
     background: #fff;
     border: 1px solid var(--card-border);
     border-radius: 10px;
-    padding: 25px;
-    margin: 20px auto;
-    box-shadow: 0 2px 0 rgba(0,0,0,.02);
-    max-width: 800px;
+    padding: 50px;
+    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.02);
 }
 
-.card h2 {
-    margin: 0 0 20px 0;
-    font-size: 20px;
-    font-weight: 600;
-    color: var(--blue-escuro);
+
+/* ===== HEADER DA PÁGINA ===== */
+.page-header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 40px 20px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 12px;
+    border: 1px solid #dee2e6;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto 40px;
 }
 
-/* Seção de Filtros */
-.filter-row {
+.header-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--blue-escuro) 0%, #1e3a8a 100%);
+    border-radius: 50%;
     display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    box-shadow: 0 8px 25px rgba(0, 39, 118, 0.2);
+}
+
+.header-icon i {
+    font-size: 32px;
+    color: white;
+}
+
+h1 {
+    margin: 0 0 10px;
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--blue-escuro);
+    text-align: center;
+}
+
+p.lead {
+    margin: 0;
+    color: #6c757d;
+    font-size: 16px;
+    text-align: center;
+    font-weight: 500;
+}
+
+/* ===== FILTROS ===== */
+.filter-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
-    align-items: end;
+    margin-bottom: 20px;
 }
 
 .filter-group {
-    flex: 1;
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -56,143 +140,129 @@ h1 {
 
 .filter-select {
     padding: 10px 12px;
-    border: 1px solid #ced4da;
+    border: 1px solid #ddd;
     border-radius: 6px;
-    background: white;
     font-size: 14px;
-    color: #495057;
+    background: white;
+    cursor: pointer;
 }
 
 .filter-select:focus {
     outline: none;
-    border-color: var(--blue-escuro);
-    box-shadow: 0 0 0 2px rgba(0, 39, 118, 0.1);
+    border-color: var(--btn-blue);
 }
 
-.btn-filtrar {
-    background: var(--blue-escuro);
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 6px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.3s;
-}
-
-.btn-filtrar:hover {
-    background: #001d5c;
-}
-
-/* Container de Certificados */
-.certificados-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+/* ===== LISTA DE CERTIFICADOS ===== */
+.certificados-list {
+    display: flex;
+    flex-direction: column;
     gap: 15px;
-    max-width: 800px;
-    margin: 0 auto;
 }
 
 .certificado-item {
-    background: white;
-    border: 1px solid #e9ecef;
-    border-radius: 6px;
-    padding: 12px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    background: #f8f9fa;
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    padding: 20px;
     transition: all 0.3s;
-    height: fit-content;
-    min-height: 140px;
-    text-align: center;
 }
 
 .certificado-item:hover {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     transform: translateY(-2px);
 }
 
 .certificado-header {
-    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
 }
 
 .certificado-icon {
-    font-size: 32px;
-    color: #28a745;
-    margin-bottom: 8px;
+    width: 50px;
+    height: 50px;
+    background: var(--blue-escuro);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 20px;
 }
 
 .certificado-title {
-    font-size: 14px;
+    font-size: 18px;
     font-weight: 600;
-    color: var(--blue-escuro);
+    color: #333;
     margin: 0;
 }
 
 .certificado-details {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    margin-bottom: 10px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 15px;
 }
 
 .detail-item {
-    font-size: 12px;
-    color: #666;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }
 
 .detail-item strong {
+    font-size: 12px;
+    color: #666;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.detail-item span {
+    font-size: 14px;
     color: #333;
+    font-weight: 500;
 }
 
 .certificado-actions {
     display: flex;
-    gap: 8px;
-    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
 }
 
 .btn-action {
-    background: var(--blue-escuro);
-    color: white;
+    padding: 8px 16px;
     border: none;
-    padding: 6px 12px;
-    border-radius: 4px;
-    font-weight: 600;
+    border-radius: 6px;
     cursor: pointer;
-    transition: all 0.3s;
     font-size: 12px;
+    font-weight: 500;
     text-decoration: none;
     display: inline-flex;
     align-items: center;
-    gap: 4px;
+    gap: 6px;
+    transition: all 0.3s;
 }
 
-.btn-action:hover {
-    background: #001d5c;
-    transform: translateY(-1px);
+.btn-view {
+    background: #e3f2fd;
+    color: #1976d2;
 }
 
-.btn-action.btn-download {
-    background: #28a745;
+.btn-view:hover {
+    background: #bbdefb;
 }
 
-.btn-action.btn-download:hover {
-    background: #218838;
+.btn-download {
+    background: #e8f5e8;
+    color: #2e7d32;
 }
 
-.btn-action.btn-view {
-    background: #17a2b8;
+.btn-download:hover {
+    background: #c8e6c9;
 }
 
-.btn-action.btn-view:hover {
-    background: #138496;
-}
-
-.empty {
-    text-align: center;
-    padding: 40px 20px;
-    color: #666;
-    font-style: italic;
-}
-
+/* ===== ESTADO VAZIO ===== */
 .empty-state {
     text-align: center;
     padding: 60px 20px;
@@ -200,61 +270,66 @@ h1 {
 }
 
 .empty-state i {
-    font-size: 64px;
-    color: #ddd;
+    font-size: 48px;
     margin-bottom: 20px;
+    color: #ccc;
 }
 
 .empty-state h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
     color: #333;
-    margin-bottom: 15px;
-    font-size: 24px;
-    font-weight: 600;
 }
 
 .empty-state p {
-    margin-bottom: 10px;
-    line-height: 1.6;
+    font-size: 14px;
+    margin: 0;
 }
 
-/* Loading e Empty States */
-.loading {
-    text-align: center;
-    padding: 40px;
-    color: #666;
+/* ===== FOOTER ===== */
+footer.rodape {
+    background: var(--gray-bar);
+    padding: 30px 20px;
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    align-items: center;
+    font-size: 15px;
+    flex-shrink: 0;
+    margin-top: auto;
 }
 
-.loading i {
-    font-size: 24px;
-    margin-bottom: 10px;
+footer.rodape div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #111;
 }
 
-.empty i {
-    font-size: 48px;
-    color: #ccc;
-    margin-bottom: 20px;
+footer.rodape a {
+    color: inherit;
+    text-decoration: none;
 }
 
-/* Responsividade */
+footer.rodape a:hover {
+    text-decoration: underline;
+}
+
+/* ===== RESPONSIVIDADE ===== */
 @media (max-width: 768px) {
     .filter-row {
-        flex-direction: column;
-        gap: 15px;
+        grid-template-columns: 1fr;
     }
     
-    .certificados-container {
+    .certificado-details {
         grid-template-columns: 1fr;
-        gap: 15px;
-        max-width: 100%;
-        padding: 0 10px;
+    }
+    
+    .certificado-actions {
+        justify-content: center;
     }
     
     .card {
-        max-width: 100%;
-        margin: 20px 10px;
-    }
-    
-    .certificados-actions {
-        flex-direction: column;
+        padding: 30px 20px;
     }
 }

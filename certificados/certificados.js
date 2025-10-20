@@ -1,5 +1,8 @@
 // ===== JAVASCRIPT DA PÁGINA DE CERTIFICADOS =====
 
+// VLibras Widget
+new window.VLibras.Widget('https://vlibras.gov.br/app');
+
 // Verificar autenticação
 function verificarAutenticacao() {
     const token = localStorage.getItem('token');
@@ -12,37 +15,55 @@ function verificarAutenticacao() {
 
 // Carregar certificados
 async function carregarCertificados() {
-    const token = localStorage.getItem('token');
     const loadingState = document.getElementById('loadingState');
     const emptyState = document.getElementById('emptyMessage');
     const container = document.getElementById('certificadosContainer');
     
     try {
-        const response = await fetch('http://localhost:3000/api/aluno/certificados', {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        });
+        // Simular carregamento
+        if (loadingState) {
+            loadingState.style.display = 'block';
+        }
+        if (container) {
+            container.style.display = 'none';
+        }
+        if (emptyState) {
+            emptyState.style.display = 'none';
+        }
         
-        if (response.ok) {
-            const certificados = await response.json();
-            
+        // Simular delay de carregamento
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        
+        // Carregar certificados do localStorage
+        const certificadosSalvos = localStorage.getItem('certificadosDisponiveis');
+        let certificados = [];
+        
+        if (certificadosSalvos) {
+            certificados = JSON.parse(certificadosSalvos);
+        }
+        
+        if (loadingState) {
             loadingState.style.display = 'none';
-            
-            if (certificados.length === 0) {
+        }
+        
+        if (certificados.length === 0) {
+            if (emptyState) {
                 emptyState.style.display = 'block';
-            } else {
-                container.style.display = 'grid';
-                renderizarCertificados(certificados);
             }
         } else {
-            throw new Error('Erro ao carregar certificados');
+            if (container) {
+                container.style.display = 'grid';
+            }
+            renderizarCertificados(certificados);
         }
     } catch (error) {
-        console.log('Modo offline - usando dados locais');
-        loadingState.style.display = 'none';
-        container.style.display = 'grid';
-        renderizarCertificados([]);
+        console.error('Erro ao carregar certificados:', error);
+        if (loadingState) {
+            loadingState.style.display = 'none';
+        }
+        if (emptyState) {
+            emptyState.style.display = 'block';
+        }
     }
 }
 
@@ -51,58 +72,63 @@ function renderizarCertificados(certificados) {
     const container = document.getElementById('certificadosContainer');
     const emptyState = document.getElementById('emptyMessage');
     
-    // Verificar se há treinamentos concluídos (100% de progresso)
-    const treinamentosConcluidos = localStorage.getItem('treinamentosConcluidos');
-    let certificadosDisponiveis = [];
-    
-    if (treinamentosConcluidos) {
-        certificadosDisponiveis = JSON.parse(treinamentosConcluidos);
-    }
-    
-    if (certificadosDisponiveis.length === 0) {
-        container.style.display = 'none';
-        emptyState.style.display = 'block';
-        emptyState.innerHTML = `
-            <div class="empty-state">
-                <i class="fa-solid fa-certificate"></i>
-                <h3>Nenhum certificado disponível ainda</h3>
-                <p>Complete seus treinamentos para obter certificados.</p>
-                <p>Os certificados aparecerão automaticamente quando você atingir 100% de progresso em um treinamento.</p>
-            </div>
-        `;
+    if (!container) {
+        console.error('Container de certificados não encontrado');
         return;
     }
     
-    // Mostrar certificados dos treinamentos concluídos
-    container.innerHTML = certificadosDisponiveis.map(certificado => `
+    if (certificados.length === 0) {
+        container.style.display = 'none';
+        if (emptyState) {
+            emptyState.style.display = 'block';
+            emptyState.innerHTML = `
+                <div class="empty-state">
+                    <i class="fa-solid fa-certificate"></i>
+                    <h3>Nenhum certificado disponível ainda</h3>
+                    <p>Complete seus treinamentos para obter certificados.</p>
+                    <p>Os certificados aparecerão automaticamente quando você atingir 100% de progresso em um treinamento.</p>
+                </div>
+            `;
+        }
+        return;
+    }
+    
+    // Mostrar certificados
+    container.innerHTML = certificados.map(certificado => `
         <div class="certificado-item">
             <div class="certificado-header">
                 <div class="certificado-icon">
                     <i class="fa-solid fa-certificate"></i>
                 </div>
-                <h3 class="certificado-title">${certificado.titulo}</h3>
+                <h3 class="certificado-title">${certificado.titulo || 'Certificado de Treinamento'}</h3>
             </div>
             
             <div class="certificado-details">
                 <div class="detail-item">
-                    <strong>Categoria:</strong> ${certificado.categoria}
+                    <strong>Categoria:</strong> ${certificado.categoria || 'N/A'}
                 </div>
                 <div class="detail-item">
-                    <strong>Concluído em:</strong> ${certificado.dataConclusao}
+                    <strong>RG do Metrô:</strong> ${certificado.alunoRg || 'N/A'}
                 </div>
                 <div class="detail-item">
-                    <strong>Carga Horária:</strong> ${certificado.cargaHoraria}
+                    <strong>Concluído em:</strong> ${certificado.dataConclusao || new Date().toLocaleDateString('pt-BR')}
                 </div>
                 <div class="detail-item">
-                    <strong>Código:</strong> ${certificado.codigo}
+                    <strong>Carga Horária:</strong> ${certificado.cargaHoraria || 'N/A'}
+                </div>
+                <div class="detail-item">
+                    <strong>Código:</strong> ${certificado.codigo || 'CERT-' + Date.now()}
+                </div>
+                <div class="detail-item">
+                    <strong>Aluno:</strong> ${certificado.aluno || 'N/A'}
                 </div>
             </div>
             
             <div class="certificado-actions">
-                <a href="#" class="btn-action btn-view" onclick="visualizarCertificado(${certificado.id})">
+                <a href="#" class="btn-action btn-view" onclick="visualizarCertificado(${certificado.id || 0})">
                     <i class="fa-solid fa-eye"></i> Visualizar
                 </a>
-                <a href="#" class="btn-action btn-download" onclick="baixarCertificado(${certificado.id})">
+                <a href="#" class="btn-action btn-download" onclick="baixarCertificado(${certificado.id || 0})">
                     <i class="fa-solid fa-download"></i> Baixar
                 </a>
             </div>
@@ -130,6 +156,7 @@ function logout() {
         window.location.href = '../../2025_maua_pii_t3_sub2_controle_treinamentos_metro_sp-tela_login/tela_login.html';
     }
 }
+
 
 // Inicializar página
 document.addEventListener('DOMContentLoaded', function() {

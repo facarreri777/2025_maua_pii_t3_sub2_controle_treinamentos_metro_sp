@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!-- CSS Base -->
-    <link rel="stylesheet" href="../styles/base.css">
+    <link rel="stylesheet" href="../../styles/base.css">
     <!-- CSS Separado -->
     <link rel="stylesheet" href="certificados.css">
 </head>
@@ -22,14 +22,12 @@
 <body>
     <header class="topo">
         Meus Certificados
-        <div class="header-buttons">
-            <button class="btn-logout" onclick="logout()" title="Sair do sistema">
-                <i class="fa-solid fa-sign-out-alt"></i> Sair
-            </button>
-        </div>
+        <button class="btn-logout" onclick="logout()" title="Sair do sistema">
+            <i class="fa-solid fa-sign-out-alt"></i> Sair
+        </button>
     </header>
 
-    <!-- Logo do Governo -->
+    <!-- Logo do Governo de SP -->
     <div class="logo-governo">
         <img src="imagens/logoGov.png" alt="Governo do Estado de São Paulo">
     </div>
@@ -39,11 +37,17 @@
             <i class="fa-solid fa-arrow-left"></i> Voltar ao Dashboard
         </a>
 
-        <h1>Meus Certificados</h1>
-        <p class="lead">Visualize e baixe seus certificados de treinamentos concluídos</p>
+        <div class="page-header">
+            <div class="header-icon">
+                <i class="fa-solid fa-certificate"></i>
+            </div>
+            <h1>Meus Certificados</h1>
+            <p class="lead">Visualize e baixe seus certificados de treinamentos concluídos</p>
+        </div>
 
-        <!-- Seção de Filtros -->
         <div class="card">
+
+            <!-- Seção de Filtros -->
             <h2>🔍 Filtros</h2>
             <div class="filter-row">
                 <div class="filter-group">
@@ -102,7 +106,15 @@
         </a>
     </footer>
 
-    <!-- JavaScript Separado -->
+    <!-- VLibras -->
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
+
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
     <script src="certificados.js"></script>
 </body>
 

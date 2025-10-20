@@ -1,38 +1,29 @@
+/* ===== TELA DE LOGIN - ESTILOS ESPECÍFICOS ===== */
 :root {
     --azul-fundo: #001b7a;
     --azul-escuro: #00246a;
     --azul-claro: #a0b0f0;
-    --branco: #ffffff;
     --cinza-input: #f3f3f3;
 }
 
-* {
-    box-sizing: border-box;
-    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
-}
-
 body {
-    margin: 0;
     background-color: var(--azul-fundo);
-    color: var(--branco);
+    color: var(--white);
     height: 100vh;
 }
 
 
-/* Moldura externa branca */
-
+/* ===== MOLDURA EXTERNA ===== */
 .borda-externa {
     position: absolute;
     top: 35px;
     left: 35px;
     right: 35px;
     bottom: 35px;
-    border: 4px solid var(--branco);
+    border: 4px solid var(--white);
 }
 
-
-/* Título no topo */
-
+/* ===== TÍTULO ===== */
 h1 {
     position: absolute;
     top: 50px;
@@ -43,24 +34,29 @@ h1 {
 }
 
 
-/* Caixa de login */
-
+/* ===== CARD DE LOGIN ===== */
 .card {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: var(--branco);
+    background-color: var(--white);
     color: var(--azul-escuro);
     width: 420px;
+    max-width: 90vw;
     border-radius: 12px;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
     padding: 0 0 30px 0;
 }
 
+/* Desabilita o efeito hover do card na tela de login */
+.card:hover {
+    transform: translate(-50%, -50%);
+    border-color: var(--card-border);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
 
-/* Cabeçalho com logo */
-
+/* ===== CABEÇALHO DO CARD ===== */
 .card-header {
     display: flex;
     align-items: center;
@@ -78,9 +74,7 @@ h1 {
     margin: 0;
 }
 
-
-/* Linha azul abaixo do cabeçalho */
-
+/* ===== LINHA DECORATIVA ===== */
 .linha {
     height: 10px;
     background-color: var(--azul-claro);
@@ -216,4 +210,43 @@ h1 {
 
 .btn:hover {
     background-color: var(--azul-escuro);
+}
+
+/* ===== RESPONSIVIDADE ===== */
+@media (max-width: 768px) {
+    .borda-externa {
+        top: 20px;
+        left: 20px;
+        right: 20px;
+        bottom: 20px;
+    }
+    
+    h1 {
+        top: 30px;
+        left: 40px;
+        font-size: 20px;
+    }
+    
+    .card {
+        width: 95vw;
+        max-width: 400px;
+    }
+    
+    .user-type-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .user-type-btn {
+        min-width: auto;
+        width: 100%;
+    }
+    
+    .form {
+        padding: 10px 20px 0 20px;
+    }
+    
+    .input-box {
+        margin-bottom: 15px;
+    }
 }

@@ -153,7 +153,7 @@ function logout() {
     if (confirm('Tem certeza que deseja sair do sistema?')) {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
-        window.location.href = '../../2025_maua_pii_t3_sub2_controle_treinamentos_metro_sp-tela_login/tela_login.html';
+        window.location.href = '../TelaLogin/tela_login.html';
     }
 }
 
@@ -164,3 +164,9 @@ document.addEventListener('DOMContentLoaded', function() {
         carregarCertificados();
     }
 });
+
+
+
+
+
+

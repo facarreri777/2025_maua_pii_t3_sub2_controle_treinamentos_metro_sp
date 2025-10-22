@@ -36,15 +36,27 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 60px 20px;
+            padding: 60px 20px 70px;
         }
 
         /* ===== RESPONSIVIDADE ===== */
+        @media (max-width: 1024px) {
+            .cards-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 25px;
+            }
+        }
+        
         @media (max-width: 768px) {
+            main {
+                padding: 10px;
+                min-height: calc(100vh - 120px);
+            }
+            
             .cards-grid {
                 grid-template-columns: 1fr;
-                gap: 20px;
-                margin: 20px auto 0;
+                gap: 15px;
+                margin: 15px auto 0;
             }
             
             .logo-metro img {
@@ -53,7 +65,42 @@
             }
             
             h1 {
-                font-size: 28px;
+                font-size: 24px;
+                margin: 5px 0;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            main {
+                padding: 8px;
+            }
+            
+            .cards-grid {
+                gap: 8px;
+            }
+            
+            .logo-metro img {
+                width: 160px;
+                height: 70px;
+            }
+            
+            h1 {
+                font-size: 20px;
+            }
+        }
+        
+        @media (max-width: 320px) {
+            main {
+                padding: 5px;
+            }
+            
+            .logo-metro img {
+                width: 140px;
+                height: 60px;
+            }
+            
+            h1 {
+                font-size: 18px;
             }
         }
     </style>
@@ -82,19 +129,19 @@
         <p class="lead">Você tem 0 treinamentos pendentes</p>
 
         <div class="cards-grid" role="list">
-            <a class="card card-nav" href="../cadastrodetreinamnetos/cadastro_treinamentos.html">
+            <a class="card card-nav" href="../TelaCadastroTreinamentos/cadastro_treinamentos.html">
                 <div class="left"><i class="fa-solid fa-graduation-cap"></i> Cadastro De Treinamentos</div>
                 <div class="arrow"><i class="fa-solid fa-arrow-right"></i></div>
             </a>
-            <a class="card card-nav" href="../acompanhamento-treinamentos/acompanhamento.html">
+            <a class="card card-nav" href="../TelaAcompanhamentoTreinamentos/acompanhamento.html">
                 <div class="left"><i class="fa-solid fa-chart-bar"></i> Acompanhamento De Treinamento</div>
                 <div class="arrow"><i class="fa-solid fa-arrow-right"></i></div>
             </a>
-            <a class="card card-nav" href="../2025_maua_pii_t3_sub2_controle_treinamentos_metro_sp-tela-cadastro-colaboradores/TelaCadastroColaboradores.html">
+            <a class="card card-nav" href="../TelaCadastroColaboradores/TelaCadastroColaboradores.html">
                 <div class="left"><i class="fa-solid fa-file-pen"></i> Cadastro De Colaboradores</div>
                 <div class="arrow"><i class="fa-solid fa-arrow-right"></i></div>
             </a>
-            <a class="card card-nav" href="#">
+            <a class="card card-nav" href="../TelaRegistroPresenca/registro_presenca.html">
                 <div class="left"><i class="fa-solid fa-clipboard-list"></i> Registro De Presença</div>
                 <div class="arrow"><i class="fa-solid fa-arrow-right"></i></div>
             </a>

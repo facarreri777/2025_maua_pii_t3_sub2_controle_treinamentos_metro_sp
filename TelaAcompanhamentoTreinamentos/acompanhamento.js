@@ -113,14 +113,14 @@ function visualizarTreinamento(id) {
 
 function editarTreinamento(id) {
     // Redirecionar para a tela de cadastro com o treinamento selecionado
-    window.location.href = `../cadastrodetreinamnetos/cadastro_treinamentos.html?edit=${id}`;
+    window.location.href = `../TelaCadastroTreinamentos/cadastro_treinamentos.html?edit=${id}`;
 }
 
 // ===== LOGOUT =====
 function logout() {
     if (confirm('Tem certeza que deseja sair do sistema?')) {
         localStorage.removeItem('user');
-        window.location.href = '../2025_maua_pii_t3_sub2_controle_treinamentos_metro_sp-tela_login/tela_login.html';
+        window.location.href = '../TelaLogin/tela_login.html';
     }
 }
 

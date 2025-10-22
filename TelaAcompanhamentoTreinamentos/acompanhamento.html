@@ -13,8 +13,175 @@
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
-  <!-- CSS Base -->
-  <link rel="stylesheet" href="../styles/base.css">
+  <!-- CSS Base incorporado -->
+  <style>
+    /* ===== CSS BASE - ESTILOS COMUNS ===== */
+    :root {
+        --blue-escuro: #002776;
+        --gray-bar: #f2f2f2;
+        --card-border: #d6d6d6;
+        --max-width: 1000px;
+        --white: #ffffff;
+        --black: #000000;
+        --text-muted: #666666;
+        --success: #28a745;
+        --danger: #dc3545;
+        --warning: #ffc107;
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        color: #111;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        background: var(--white);
+    }
+
+    /* ===== HEADER COMUM ===== */
+    header.topo {
+        background: var(--blue-escuro);
+        color: var(--white);
+        padding: 18px 20px;
+        font-size: 26px;
+        font-weight: 700;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .btn-logout {
+        background: rgba(255, 255, 255, 0.2);
+        color: var(--white);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        padding: 8px 15px;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .btn-logout:hover {
+        background: rgba(255, 255, 255, 0.3);
+        border-color: rgba(255, 255, 255, 0.5);
+    }
+
+    /* ===== LOGO GOVERNO ===== */
+    .logo-governo {
+        background: var(--black);
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        padding: 10px 30px;
+    }
+
+    .logo-governo img {
+        height: 60px;
+    }
+
+    /* ===== FOOTER COMUM ===== */
+    footer.rodape {
+        background: var(--gray-bar);
+        padding: 30px 20px;
+        display: flex;
+        justify-content: center;
+        gap: 50px;
+        align-items: center;
+        font-size: 15px;
+        flex-shrink: 0;
+        margin-top: 50px;
+    }
+
+    footer.rodape div {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: #111;
+    }
+
+    footer.rodape a {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    footer.rodape a:hover {
+        text-decoration: underline;
+    }
+
+    /* ===== BOTÕES COMUNS ===== */
+    .btn-voltar {
+        background: #6c757d;
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.3s;
+        font-size: 14px;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 20px;
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        z-index: 10;
+    }
+
+    .btn-voltar:hover {
+        background: #5a6268;
+    }
+
+    /* ===== CARDS COMUNS ===== */
+    .card {
+        background: var(--white);
+        border: 1px solid var(--card-border);
+        border-radius: 8px;
+        padding: 20px;
+        transition: all 0.3s;
+    }
+
+    .card:hover {
+        border-color: var(--blue-escuro);
+        box-shadow: 0 4px 15px rgba(0, 39, 118, 0.1);
+    }
+
+    /* ===== MAIN POSITIONING ===== */
+    main {
+        position: relative;
+    }
+
+    /* ===== RESPONSIVIDADE COMUM ===== */
+    @media (max-width: 768px) {
+        footer.rodape {
+            flex-direction: column;
+            gap: 20px;
+            text-align: center;
+        }
+        
+        header.topo {
+            font-size: 20px;
+            padding: 15px;
+        }
+        
+        .btn-voltar {
+            top: 15px;
+            left: 15px;
+            padding: 10px 15px;
+            font-size: 13px;
+        }
+    }
+  </style>
   
   <!-- CSS Específico da Tela -->
   <link rel="stylesheet" href="acompanhamento.css">
@@ -36,7 +203,7 @@
   </div>
 
   <main class="main-content">
-    <a href="../2025_maua_pii_t3_sub2_controle_treinamentos_metro_sp-tela-home/tela_home.html" class="btn-voltar">
+    <a href="../TelaHome/tela_home.html" class="btn-voltar">
       <i class="fa-solid fa-arrow-left"></i> Voltar ao Dashboard
     </a>
 

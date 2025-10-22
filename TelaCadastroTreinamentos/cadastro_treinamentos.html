@@ -5,6 +5,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Cadastro de Treinamentos - Metrô SP</title>
+  <!-- Versão atualizada: Campos obrigatórios e valores padrão configurados -->
 
   <!-- Ícone do Metrô de São Paulo (favicon) -->
   <link rel="icon" type="image/png"
@@ -36,7 +37,7 @@
   </div>
 
   <main class="main-content">
-    <a href="../2025_maua_pii_t3_sub2_controle_treinamentos_metro_sp-tela-home/tela_home.html" class="btn-voltar">
+    <a href="../TelaHome/tela_home.html" class="btn-voltar">
       <i class="fa-solid fa-arrow-left"></i> Voltar ao Dashboard
     </a>
 
@@ -123,42 +124,29 @@
           </div>
 
           <div class="form-row">
-            <div class="form-group">
-              <label for="local">Local do Treinamento</label>
+            <div class="form-group full-width">
+              <label for="local">Local do Treinamento <span id="local-required" style="display: none;">*</span></label>
               <input type="text" id="local" name="local" class="form-input" 
                      placeholder="Ex: Sala de Treinamento A, Centro de Capacitação">
             </div>
+          </div>
+
+          <!-- Modalidade e Certificado fixos - não editáveis -->
+          <div class="form-row">
             <div class="form-group">
-              <label for="modalidade">Modalidade *</label>
-              <select id="modalidade" name="modalidade" class="form-select" required>
-                <option value="">Selecione a modalidade</option>
-                <option value="presencial">Presencial</option>
-                <option value="online">Online</option>
-                <option value="hibrido">Híbrido</option>
-              </select>
+              <label>Modalidade</label>
+              <div class="form-display">
+                <i class="fa-solid fa-building"></i> Presencial
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Certificado</label>
+              <div class="form-display">
+                <i class="fa-solid fa-certificate"></i> Sim (Obrigatório)
+              </div>
             </div>
           </div>
 
-          <div class="form-row">
-            <div class="form-group full-width">
-              <label for="requisitos">Pré-requisitos</label>
-              <textarea id="requisitos" name="requisitos" class="form-textarea" 
-                        placeholder="Descreva os pré-requisitos necessários para participar do treinamento..."></textarea>
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group">
-              <label for="objetivos">Objetivos do Treinamento</label>
-              <textarea id="objetivos" name="objetivos" class="form-textarea" 
-                        placeholder="Liste os principais objetivos que serão alcançados..."></textarea>
-            </div>
-            <div class="form-group">
-              <label for="conteudo">Conteúdo Programático</label>
-              <textarea id="conteudo" name="conteudo" class="form-textarea" 
-                        placeholder="Descreva o conteúdo que será abordado..."></textarea>
-            </div>
-          </div>
 
           <div class="form-row">
             <div class="form-group">

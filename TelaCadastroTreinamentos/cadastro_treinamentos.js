@@ -12,7 +12,7 @@ function logout() {
     if (confirm('Tem certeza que deseja sair do sistema?')) {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
-        window.location.href = '../2025_maua_pii_t3_sub2_controle_treinamentos_metro_sp-tela_login/tela_login.html';
+        window.location.href = '../TelaLogin/tela_login.html';
     }
 }
 
@@ -474,8 +474,9 @@ function validarFormulario(formData) {
         erros.push('Data de término é obrigatória');
     }
     
-    if (!formData.modalidade) {
-        erros.push('Modalidade é obrigatória');
+    // Validar local (obrigatório para todos os treinamentos)
+    if (!formData.local.trim()) {
+        erros.push('Local é obrigatório para treinamentos presenciais');
     }
     
     // Validar datas
@@ -513,11 +514,8 @@ function cadastrarTreinamento(formData) {
         horario_inicio: formData.horario_inicio || null,
         horario_fim: formData.horario_fim || null,
         local: formData.local.trim() || null,
-        modalidade: formData.modalidade,
-        requisitos: formData.requisitos.trim() || null,
-        objetivos: formData.objetivos.trim() || null,
-        conteudo: formData.conteudo.trim() || null,
-        certificado: true, // Todos os treinamentos emitem certificado
+        modalidade: 'presencial', // Fixo: presencial
+        certificado: true, // Fixo: sempre true
         obrigatorio: formData.obrigatorio || false,
         ativo: true,
         data_cadastro: new Date().toISOString()
@@ -541,6 +539,8 @@ function cadastrarTreinamento(formData) {
 function limparFormulario() {
     document.getElementById('formTreinamento').reset();
     ocultarAlertas();
+    // Restaurar valores padrão
+    definirValoresPadrao();
 }
 
 // Mostrar alerta
@@ -598,9 +598,6 @@ function visualizarTreinamento(id) {
             <strong>Período:</strong> ${formatarData(treinamento.data_inicio)} - ${formatarData(treinamento.data_fim)}<br>
             <strong>Modalidade:</strong> ${treinamento.modalidade}<br>
             ${treinamento.local ? `<strong>Local:</strong> ${treinamento.local}<br>` : ''}
-            ${treinamento.requisitos ? `<strong>Pré-requisitos:</strong> ${treinamento.requisitos}<br>` : ''}
-            ${treinamento.objetivos ? `<strong>Objetivos:</strong> ${treinamento.objetivos}<br>` : ''}
-            ${treinamento.conteudo ? `<strong>Conteúdo:</strong> ${treinamento.conteudo}<br>` : ''}
             <strong>Certificado:</strong> ${treinamento.certificado ? 'Sim' : 'Não'}<br>
             <strong>Obrigatório:</strong> ${treinamento.obrigatorio ? 'Sim' : 'Não'}
         `;
@@ -625,11 +622,6 @@ function editarTreinamento(id) {
         document.getElementById('horario_inicio').value = treinamento.horario_inicio || '';
         document.getElementById('horario_fim').value = treinamento.horario_fim || '';
         document.getElementById('local').value = treinamento.local || '';
-        document.getElementById('modalidade').value = treinamento.modalidade;
-        document.getElementById('requisitos').value = treinamento.requisitos || '';
-        document.getElementById('objetivos').value = treinamento.objetivos || '';
-        document.getElementById('conteudo').value = treinamento.conteudo || '';
-        // Certificado sempre true - não precisa definir
         document.getElementById('obrigatorio').checked = treinamento.obrigatorio;
         
         // Remover treinamento da lista (será adicionado novamente ao salvar)
@@ -697,6 +689,24 @@ function exportarTreinamentos() {
     mostrarAlerta('success', 'Exportação', 'Treinamentos exportados com sucesso!');
 }
 
+// Definir valores padrão do formulário
+function definirValoresPadrao() {
+    console.log('Definindo valores padrão...');
+    
+    // Configurar campo local como obrigatório (todos os treinamentos são presenciais)
+    const localInput = document.getElementById('local');
+    const localRequired = document.getElementById('local-required');
+    localRequired.style.display = 'inline';
+    localInput.required = true;
+    localInput.setCustomValidity('Local é obrigatório para treinamentos presenciais');
+    
+    console.log('Valores padrão definidos:', {
+        modalidade: 'presencial (fixo)',
+        certificado: 'true (fixo)',
+        localRequired: localInput.required
+    });
+}
+
 // Inicializar página
 window.addEventListener('load', async function() {
     // Inicializar dados vazios se necessário
@@ -708,6 +718,9 @@ window.addEventListener('load', async function() {
         carregarTreinamentosConcluidos();
         atualizarContadores();
         
+        // Definir valores padrão
+        definirValoresPadrao();
+        
         // Adicionar event listener para o formulário
         document.getElementById('formTreinamento').addEventListener('submit', function(e) {
             e.preventDefault();
@@ -715,12 +728,15 @@ window.addEventListener('load', async function() {
             const formData = new FormData(this);
             const data = Object.fromEntries(formData.entries());
             
-            // Converter checkboxes
-            data.certificado = true; // Sempre true
+            // Definir valores fixos
+            data.modalidade = 'presencial';
+            data.certificado = true;
             data.obrigatorio = document.getElementById('obrigatorio').checked;
             
             if (cadastrarTreinamento(data)) {
                 this.reset();
+                // Restaurar valores padrão após reset
+                definirValoresPadrao();
             }
         });
         
@@ -752,5 +768,6 @@ window.addEventListener('load', async function() {
                 }
             }
         });
+        
     }
 });

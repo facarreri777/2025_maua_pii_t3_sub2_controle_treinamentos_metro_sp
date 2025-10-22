@@ -10,25 +10,44 @@ document.addEventListener('DOMContentLoaded', function() {
     atualizarEstatisticas();
 });
 
+// ===== FUNÇÕES AUXILIARES =====
+
+// Obter texto do status
+function getStatusText(status) {
+    switch (status) {
+        case 'em-andamento':
+            return 'Em Andamento';
+        case 'concluido':
+            return 'Concluído';
+        case 'disponivel':
+            return 'Disponível';
+        default:
+            return 'Em Andamento';
+    }
+}
+
 // ===== CARREGAR DADOS =====
 function carregarDados() {
-    // Carregar treinamentos disponíveis
-    const treinamentos = localStorage.getItem('treinamentosCadastrados');
-    if (treinamentos) {
-        treinamentosDisponiveis = JSON.parse(treinamentos);
+    // Carregar progresso do aluno
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    const progressoAluno = JSON.parse(localStorage.getItem('progressoAluno') || '{}');
+    
+    if (progressoAluno[user.id] && progressoAluno[user.id].treinamentos) {
+        // Usar treinamentos do progresso do aluno
+        treinamentosDisponiveis = progressoAluno[user.id].treinamentos;
+        console.log('Treinamentos do progresso carregados:', treinamentosDisponiveis);
+    } else {
+        // Se não há progresso, carregar treinamentos disponíveis
+        const treinamentos = localStorage.getItem('treinamentosCadastrados');
+        if (treinamentos) {
+            treinamentosDisponiveis = JSON.parse(treinamentos);
+        }
+        console.log('Nenhum progresso encontrado, carregando treinamentos disponíveis');
     }
     
-    // Carregar treinamentos concluídos pelo aluno
-    const concluidos = localStorage.getItem('treinamentosConcluidos');
-    if (concluidos) {
-        treinamentosConcluidos = JSON.parse(concluidos);
-    }
-    
-    // Carregar certificados do aluno
-    const certificados = localStorage.getItem('certificadosDisponiveis');
-    if (certificados) {
-        certificadosAluno = JSON.parse(certificados);
-    }
+    // Inicializar arrays vazios - certificados só aparecem quando instrutor concluir curso
+    treinamentosConcluidos = [];
+    certificadosAluno = [];
 }
 
 // ===== RENDERIZAR TREINAMENTOS =====
@@ -36,10 +55,9 @@ function renderizarTreinamentos() {
     const container = document.getElementById('treinamentosList');
     const emptyState = document.getElementById('emptyMessage');
     
-    // Buscar treinamentos do aluno baseado nos concluídos pelo aluno
-    const treinamentosAluno = buscarTreinamentosAluno();
+    console.log('Treinamentos disponíveis para renderizar:', treinamentosDisponiveis);
     
-    if (treinamentosAluno.length === 0) {
+    if (treinamentosDisponiveis.length === 0) {
         container.style.display = 'none';
         emptyState.style.display = 'block';
         return;
@@ -48,10 +66,10 @@ function renderizarTreinamentos() {
     container.style.display = 'block';
     emptyState.style.display = 'none';
     
-    container.innerHTML = treinamentosAluno.map(treinamento => {
-        const statusClass = treinamento.status;
-        const statusText = treinamento.statusText;
-        const progress = treinamento.progress;
+    container.innerHTML = treinamentosDisponiveis.map(treinamento => {
+        const statusClass = treinamento.status || 'em-andamento';
+        const statusText = getStatusText(statusClass);
+        const progress = treinamento.progresso || 0;
         
         return `
             <div class="treinamento-item">
@@ -61,11 +79,6 @@ function renderizarTreinamentos() {
                 </div>
                 <div class="treinamento-status">
                     <span class="status-badge ${statusClass}">${statusText}</span>
-                    ${treinamento.status === 'concluido' ? `
-                        <button class="btn-action btn-certificate" onclick="verCertificado(${treinamento.id})">
-                            <i class="fa-solid fa-certificate"></i> Ver Certificado
-                        </button>
-                    ` : ''}
                 </div>
             </div>
         `;
@@ -135,58 +148,17 @@ function atualizarEstatisticas() {
     document.getElementById('certificados').textContent = certificados;
 }
 
-// ===== VER CERTIFICADO =====
-function verCertificado(treinamentoId) {
-    const certificado = certificadosAluno.find(c => c.treinamentoId === treinamentoId);
-    
-    if (certificado) {
-        // Abrir certificado em nova aba
-        const certificadoWindow = window.open('', '_blank');
-        certificadoWindow.document.write(`
-            <!DOCTYPE html>
-            <html>
-            <head>
-                <title>Certificado - ${certificado.titulo}</title>
-                <style>
-                    body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
-                    .certificado { border: 3px solid #002776; padding: 40px; max-width: 800px; margin: 0 auto; }
-                    .logo { font-size: 24px; font-weight: bold; color: #002776; margin-bottom: 20px; }
-                    .titulo { font-size: 28px; font-weight: bold; margin: 20px 0; }
-                    .aluno { font-size: 18px; margin: 20px 0; }
-                    .data { font-size: 14px; color: #666; margin-top: 30px; }
-                </style>
-            </head>
-            <body>
-                <div class="certificado">
-                    <div class="logo">GOVERNO DO ESTADO DE SÃO PAULO</div>
-                    <div class="logo">METRÔ DE SÃO PAULO</div>
-                    <h1 class="titulo">CERTIFICADO DE CONCLUSÃO</h1>
-                    <p class="aluno">Certificamos que <strong>${certificado.nomeAluno}</strong></p>
-                    <p class="aluno">RG do Metrô: <strong>${certificado.rgMetro}</strong></p>
-                    <p>concluiu com sucesso o treinamento:</p>
-                    <h2>${certificado.titulo}</h2>
-                    <p>${certificado.descricao}</p>
-                    <div class="data">
-                        <p>Data de conclusão: ${certificado.dataConclusao}</p>
-                        <p>Data de emissão: ${certificado.dataEmissao}</p>
-                    </div>
-                </div>
-            </body>
-            </html>
-        `);
-    } else {
-        alert('Certificado não encontrado. Entre em contato com o administrador.');
-    }
-}
 
 // ===== VOLTAR AO DASHBOARD =====
 function voltarDashboard() {
-    window.location.href = '../2025_maua_pii_t3_sub2_controle_treinamentos_metro_sp-tela-aluno-home/TelaAlunoHome/aluno_home.html';
+    window.location.href = '../TelaHomeAluno/aluno_home.html';
 }
 
-// ===== SAIR =====
-function sair() {
+// ===== LOGOUT =====
+function logout() {
     if (confirm('Tem certeza que deseja sair do sistema?')) {
-        window.location.href = '../../2025_maua_pii_t3_sub2_controle_treinamentos_metro_sp-tela_login/tela_login.html';
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        window.location.href = '../TelaLogin/tela_login.html';
     }
 }

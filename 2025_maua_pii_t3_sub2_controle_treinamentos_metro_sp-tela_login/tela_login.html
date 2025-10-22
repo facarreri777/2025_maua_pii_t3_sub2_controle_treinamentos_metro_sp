@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Login - Sistema de Treinamentos Metrô SP</title>
+    
+    <!-- Ícone do Metrô de São Paulo (favicon) -->
+    <link rel="icon" type="image/png"
+        href="https://www.metro.sp.gov.br/wp-content/themes/metrosp/assets/images/favicon.png">
+    
+    <!-- CSS Base -->
+    <link rel="stylesheet" href="../styles/base.css">
+    <link rel="stylesheet" href="tela_login.css">
+</head>
+
+<body>
+
+    <!-- Borda externa -->
+    <div class="borda-externa"></div>
+
+    <!-- Título -->
+    <h1>Login (Instrutor/aluno)</h1>
+
+    <!-- Caixa de Login -->
+    <div class="card">
+        <div class="card-header">
+            <img src="imagens/logoMretro.png" alt="Logo Metrô">
+            <h2>Controle de<br>Treinamentos</h2>
+        </div>
+
+        <div class="linha"></div>
+
+        <div class="form" autocomplete="off">
+            <!-- Seleção de Tipo de Usuário -->
+            <div class="user-type-selection">
+                <h3>Selecione o tipo de acesso:</h3>
+                <div class="user-type-buttons">
+                    <button class="user-type-btn active" data-type="aluno">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M12 12a5 5 0 1 0-.001-10.001A5 5 0 0 0 12 12zm0 2c-4.418 0-8 2.239-8 5v1h16v-1c0-2.761-3.582-5-8-5z"/>
+                        </svg>
+                        Aluno
+                    </button>
+                    <button class="user-type-btn" data-type="instrutor">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                        Instrutor
+                    </button>
+                </div>
+            </div>
+
+            <!-- Campo Usuário -->
+            <div class="input-box">
+                <div class="input-icon">
+                    <!-- Ícone de usuário -->
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M12 12a5 5 0 1 0-.001-10.001A5 5 0 0 0 12 12zm0 2c-4.418 0-8 2.239-8 5v1h16v-1c0-2.761-3.582-5-8-5z"/>
+          </svg>
+                </div>
+                <input type="text" class="input-field" placeholder="Usuário" autocomplete="off" />
+            </div>
+
+            <!-- Campo Senha -->
+            <div class="input-box">
+                <div class="input-icon">
+                    <!-- Ícone de cadeado -->
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M17 8h-1V6a4 4 0 0 0-8 0v2H7a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2zm-7-2a2 2 0 0 1 4 0v2h-4V6zm7 12H7v-8h10v8z"/>
+          </svg>
+                </div>
+                <input type="password" class="input-field" placeholder="Senha" autocomplete="new-password" />
+            </div>
+
+            <button class="btn" id="loginBtn">Acessar</button>
+        </div>
+    </div>
+
+    <script src="tela_login.js"></script>
+
+</body>
+
+</html>

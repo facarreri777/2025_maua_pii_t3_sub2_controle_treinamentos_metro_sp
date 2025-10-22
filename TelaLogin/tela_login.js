@@ -55,9 +55,9 @@ document.getElementById('loginBtn').addEventListener('click', async function() {
             
             // Redirecionar baseado no tipo de usuário
             if (data.user.tipo === 'aluno') {
-                window.location.href = '../2025_maua_pii_t3_sub2_controle_treinamentos_metro_sp-tela-aluno-home/TelaAlunoHome/aluno_home.html';
+                window.location.href = '../TelaHomeAluno/aluno_home.html';
             } else if (data.user.tipo === 'instrutor' || data.user.tipo === 'admin') {
-                window.location.href = '../2025_maua_pii_t3_sub2_controle_treinamentos_metro_sp-tela-home/tela_home.html';
+                window.location.href = '../TelaHome/tela_home.html';
             }
         } else {
             // Login falhou
@@ -75,7 +75,7 @@ document.getElementById('loginBtn').addEventListener('click', async function() {
             if (aluno) {
                 localStorage.setItem('token', 'aluno_token_' + Date.now());
                 localStorage.setItem('user', JSON.stringify(aluno));
-                window.location.href = '../2025_maua_pii_t3_sub2_controle_treinamentos_metro_sp-tela-aluno-home/TelaAlunoHome/aluno_home.html';
+                window.location.href = '../TelaHomeAluno/aluno_home.html';
             } else {
                 alert('Usuário ou senha inválidos! Verifique se você foi cadastrado pelo instrutor.');
                 limparInputs();
@@ -89,7 +89,7 @@ document.getElementById('loginBtn').addEventListener('click', async function() {
                     tipo: 'instrutor',
                     email: 'instrutor@metro.sp.gov.br'
                 }));
-                window.location.href = '../2025_maua_pii_t3_sub2_controle_treinamentos_metro_sp-tela-home/tela_home.html';
+                window.location.href = '../TelaHome/tela_home.html';
             } else {
                 alert('Credenciais do instrutor inválidas! Use: usuário="instrutor", senha="metro123"');
                 limparInputs();

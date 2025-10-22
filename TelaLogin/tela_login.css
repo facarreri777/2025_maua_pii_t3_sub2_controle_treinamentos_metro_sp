@@ -110,7 +110,7 @@ h1 {
     gap: 8px;
     padding: 12px 24px;
     border: 2px solid var(--azul-claro);
-    background-color: var(--branco);
+    background-color: var(--white);
     color: var(--azul-escuro);
     border-radius: 8px;
     cursor: pointer;
@@ -129,8 +129,10 @@ h1 {
 
 .user-type-btn.active {
     background-color: var(--azul-escuro);
-    color: var(--branco);
+    color: var(--white);
     border-color: var(--azul-escuro);
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(0, 36, 106, 0.3);
 }
 
 .user-type-btn svg {
@@ -164,7 +166,7 @@ h1 {
 }
 
 .input-icon svg {
-    fill: var(--branco);
+    fill: var(--white);
     width: 20px;
     height: 20px;
 }
@@ -183,7 +185,7 @@ h1 {
 
 .input-field:focus {
     outline: none;
-    background-color: var(--branco);
+    background-color: var(--white);
     border-color: var(--azul-escuro);
 }
 
@@ -199,7 +201,7 @@ h1 {
     width: 85%;
     margin: 10px auto 0 auto;
     background-color: var(--azul-fundo);
-    color: var(--branco);
+    color: var(--white);
     border: none;
     border-radius: 10px;
     font-size: 16px;

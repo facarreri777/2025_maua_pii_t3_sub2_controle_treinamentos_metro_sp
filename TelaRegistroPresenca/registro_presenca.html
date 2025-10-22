@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Registro de Presença - Metrô SP</title>
+
+  <!-- Ícone do Metrô de São Paulo (favicon) -->
+  <link rel="icon" type="image/png"
+      href="https://www.metro.sp.gov.br/wp-content/themes/metrosp/assets/images/favicon.png">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- CSS Base -->
+  <link rel="stylesheet" href="../styles/base.css">
+  
+  <!-- CSS Específico da Tela -->
+  <link rel="stylesheet" href="registro_presenca.css">
+
+</head>
+
+<body>
+  <header class="topo">
+    Registro de Presença
+    <button class="btn-logout" onclick="logout()" title="Sair do sistema">
+      <i class="fa-solid fa-sign-out-alt"></i> Sair
+    </button>
+  </header>
+
+  <!-- Logo do Governo de SP -->
+  <div class="logo-governo">
+    <img src="imagens/logoGov.png" alt="Governo do Estado de São Paulo">
+  </div>
+
+  <main class="main-content">
+    <a href="../TelaHome/tela_home.html" class="btn-voltar">
+      <i class="fa-solid fa-arrow-left"></i> Voltar ao Dashboard
+    </a>
+
+    <div class="page-header">
+      <div class="main-icon">
+        <i class="fa-solid fa-clipboard-check"></i>
+      </div>
+      <h1>Registro de Presença</h1>
+      <p class="lead">Controle de frequência dos alunos nos treinamentos</p>
+    </div>
+
+    <!-- Seção de Registro de Presença -->
+    <div class="card">
+      <div class="card-header">
+        <h2><i class="fa-solid fa-clipboard-check"></i> Registrar Presença</h2>
+      </div>
+      <div class="card-body">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="treinamento-select">Treinamento:</label>
+            <select id="treinamento-select" class="form-control" onchange="carregarAlunos()">
+              <option value="">Selecione um treinamento</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="data-aula">Data da Aula:</label>
+            <input type="date" id="data-aula" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="horario-aula">Horário:</label>
+            <input type="time" id="horario-aula" class="form-control" value="09:00">
+          </div>
+          <div class="form-group">
+            <label for="instrutor">Instrutor:</label>
+            <input type="text" id="instrutor" class="form-control" placeholder="Nome do instrutor">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Seção de Lista de Alunos -->
+    <div class="card" id="lista-alunos-card" style="display: none;">
+      <div class="card-header">
+        <h2><i class="fa-solid fa-users"></i> Lista de Alunos</h2>
+        <div class="header-actions">
+          <button class="btn btn-primary" onclick="marcarTodosPresentes()">
+            <i class="fa-solid fa-check-double"></i> Marcar Todos Presentes
+          </button>
+          <button class="btn btn-secondary" onclick="marcarTodosAusentes()">
+            <i class="fa-solid fa-times"></i> Marcar Todos Ausentes
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="alunos-container" id="alunos-container">
+          <!-- Alunos serão carregados dinamicamente -->
+        </div>
+        
+        <div class="empty-state" id="empty-alunos" style="display: none;">
+          <i class="fa-solid fa-user-slash"></i>
+          <h3>Nenhum aluno encontrado</h3>
+          <p>Selecione um treinamento para visualizar os alunos inscritos.</p>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Seção de Assinatura Digital (Individual) -->
+    <div class="card" id="assinatura-card" style="display: none;">
+      <div class="card-header">
+        <h2><i class="fa-solid fa-signature"></i> Assinatura Digital Individual</h2>
+        <p class="card-description">Clique em um aluno para registrar sua assinatura</p>
+      </div>
+      <div class="card-body">
+        <div class="assinatura-container">
+          <div class="assinatura-info">
+            <h3>Aluno: <span id="nome-aluno-assinatura">-</span></h3>
+            <p>RG do Metrô: <span id="rg-aluno-assinatura">-</span></p>
+          </div>
+          
+          <div class="canvas-container">
+            <canvas id="signature-canvas" width="600" height="200"></canvas>
+          </div>
+          
+          <div class="assinatura-actions">
+            <button class="btn btn-danger" onclick="limparAssinatura()">
+              <i class="fa-solid fa-eraser"></i> Limpar
+            </button>
+            <button class="btn btn-success" onclick="salvarAssinatura()">
+              <i class="fa-solid fa-save"></i> Salvar Assinatura
+            </button>
+            <button class="btn btn-secondary" onclick="cancelarAssinatura()">
+              <i class="fa-solid fa-times"></i> Cancelar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Seção de Resumo -->
+    <div class="card" id="resumo-card" style="display: none;">
+      <div class="card-header">
+        <h2><i class="fa-solid fa-chart-pie"></i> Resumo da Presença</h2>
+      </div>
+      <div class="card-body">
+        <div class="stats-container">
+          <div class="stat-item">
+            <div class="stat-icon present">
+              <i class="fa-solid fa-check-circle"></i>
+            </div>
+            <div class="stat-content">
+              <div class="stat-number" id="total-presentes">0</div>
+              <div class="stat-label">Presentes</div>
+            </div>
+          </div>
+          
+          <div class="stat-item">
+            <div class="stat-icon absent">
+              <i class="fa-solid fa-times-circle"></i>
+            </div>
+            <div class="stat-content">
+              <div class="stat-number" id="total-ausentes">0</div>
+              <div class="stat-label">Ausentes</div>
+            </div>
+          </div>
+          
+          <div class="stat-item">
+            <div class="stat-icon total">
+              <i class="fa-solid fa-users"></i>
+            </div>
+            <div class="stat-content">
+              <div class="stat-number" id="total-alunos">0</div>
+              <div class="stat-label">Total</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="resumo-actions">
+          <button class="btn btn-primary" onclick="salvarPresenca()">
+            <i class="fa-solid fa-save"></i> Salvar Registro de Presença
+          </button>
+          <button class="btn btn-secondary" onclick="imprimirLista()">
+            <i class="fa-solid fa-print"></i> Imprimir Lista
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="rodape">
+    <a href="https://www.metro.sp.gov.br/atendimento/fale-conosco.aspx" target="_blank">
+      <div><i class="fa-solid fa-phone"></i> Fale conosco</div>
+    </a>
+    <a href="https://www.metro.sp.gov.br/atendimento/ouvidoria.aspx" target="_blank">
+      <div><i class="fa-regular fa-comment-dots"></i> Ouvidoria</div>
+    </a>
+    <div><i class="fa-regular fa-clock"></i> 8h às 18h</div>
+    <a href="https://www.metro.sp.gov.br/atendimento/fale-conosco.aspx" target="_blank">
+      <div><i class="fa-solid fa-envelope"></i> SMS</div>
+    </a>
+  </footer>
+
+  <!-- VLibras -->
+  <div vw class="enabled">
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper>
+      <div class="vw-plugin-top-wrapper"></div>
+    </div>
+  </div>
+  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+  <script>
+    new window.VLibras.Widget('https://vlibras.gov.br/app');
+  </script>
+
+  <script src="registro_presenca.js"></script>
+</body>
+</html>

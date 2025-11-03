@@ -80,14 +80,6 @@
     <div class="card" id="lista-alunos-card" style="display: none;">
       <div class="card-header">
         <h2><i class="fa-solid fa-users"></i> Lista de Alunos</h2>
-        <div class="header-actions">
-          <button class="btn btn-primary" onclick="marcarTodosPresentes()">
-            <i class="fa-solid fa-check-double"></i> Marcar Todos Presentes
-          </button>
-          <button class="btn btn-secondary" onclick="marcarTodosAusentes()">
-            <i class="fa-solid fa-times"></i> Marcar Todos Ausentes
-          </button>
-        </div>
       </div>
       <div class="card-body">
         <div class="alunos-container" id="alunos-container">
@@ -99,36 +91,66 @@
           <h3>Nenhum aluno encontrado</h3>
           <p>Selecione um treinamento para visualizar os alunos inscritos.</p>
         </div>
+        
+        <!-- Botão para Salvar Assinaturas -->
+        <div class="save-section">
+          <button class="btn btn-success btn-large" onclick="salvarAssinaturasNoBanco()" id="btn-salvar-assinaturas">
+            <i class="fa-solid fa-save"></i> Salvar Registro de Presença
+          </button>
+          <p class="save-hint">
+            <i class="fa-solid fa-info-circle"></i> 
+            As assinaturas serão salvas permanentemente no banco de dados
+          </p>
+        </div>
       </div>
     </div>
 
 
-    <!-- Seção de Assinatura Digital (Individual) -->
-    <div class="card" id="assinatura-card" style="display: none;">
-      <div class="card-header">
-        <h2><i class="fa-solid fa-signature"></i> Assinatura Digital Individual</h2>
-        <p class="card-description">Clique em um aluno para registrar sua assinatura</p>
-      </div>
-      <div class="card-body">
-        <div class="assinatura-container">
-          <div class="assinatura-info">
-            <h3>Aluno: <span id="nome-aluno-assinatura">-</span></h3>
-            <p>RG do Metrô: <span id="rg-aluno-assinatura">-</span></p>
+    <!-- Modal de Assinatura Digital -->
+    <div class="modal-overlay" id="modal-assinatura" style="display: none;">
+      <div class="modal-assinatura">
+        <div class="modal-header">
+          <h2><i class="fa-solid fa-signature"></i> Assinatura Digital</h2>
+          <button class="btn-close-modal" onclick="fecharModalAssinatura()">
+            <i class="fa-solid fa-times"></i>
+          </button>
+        </div>
+        
+        <div class="modal-body">
+          <div class="assinatura-info-card">
+            <div class="info-item">
+              <span class="info-label"><i class="fa-solid fa-user"></i> Aluno:</span>
+              <span class="info-value" id="modal-nome-aluno">-</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label"><i class="fa-solid fa-id-card"></i> RG Metro:</span>
+              <span class="info-value" id="modal-rg-aluno">-</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label"><i class="fa-solid fa-calendar"></i> Data:</span>
+              <span class="info-value" id="modal-data-aula">-</span>
+            </div>
+          </div>
+
+          <div class="assinatura-instrucao">
+            <i class="fa-solid fa-hand-pointer"></i>
+            <p>Assine no quadro abaixo com o mouse, dedo ou caneta stylus</p>
           </div>
           
-          <div class="canvas-container">
-            <canvas id="signature-canvas" width="600" height="200"></canvas>
+          <div class="canvas-wrapper">
+            <canvas id="signature-canvas" width="700" height="300"></canvas>
+            <div class="canvas-placeholder" id="canvas-placeholder">
+              <i class="fa-solid fa-signature"></i>
+              <p>Clique e arraste para assinar</p>
+            </div>
           </div>
           
-          <div class="assinatura-actions">
-            <button class="btn btn-danger" onclick="limparAssinatura()">
+          <div class="assinatura-footer">
+            <button class="btn btn-outline" onclick="limparAssinatura()">
               <i class="fa-solid fa-eraser"></i> Limpar
             </button>
-            <button class="btn btn-success" onclick="salvarAssinatura()">
-              <i class="fa-solid fa-save"></i> Salvar Assinatura
-            </button>
-            <button class="btn btn-secondary" onclick="cancelarAssinatura()">
-              <i class="fa-solid fa-times"></i> Cancelar
+            <button class="btn btn-success" onclick="confirmarAssinatura()">
+              <i class="fa-solid fa-check"></i> Confirmar Assinatura
             </button>
           </div>
         </div>
@@ -199,6 +221,34 @@
     </a>
   </footer>
 
+  <!-- ======= ACESSIBILIDADE ======= -->
+  <!-- 1. Link de pular para o conteúdo -->
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo principal</a>
+
+  <!-- 2. Texto só para leitores de tela -->
+  <style>
+    .skip-link {
+      position: absolute; left: -9999px; top: auto; width: 1px; height: 1px; overflow: hidden;
+    }
+    .skip-link:focus {
+      position: static; width: auto; height: auto; padding: .5rem 1rem; background: #eee;
+    }
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden;
+      clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
+    :focus { outline: 3px solid #000; outline-offset: 2px; }
+  </style>
+
+  <!-- 3. Região para mensagens automáticas do leitor de tela -->
+  <div aria-live="polite" class="sr-only" id="mensagens"></div>
+
+  <!-- 4. Exemplo de alerta de erro/sucesso para leitores de tela -->
+  <div role="alert" id="status-form" class="sr-only">
+    Preencha os campos obrigatórios.
+  </div>
+  <!-- ======= FIM DA ACESSIBILIDADE ======= -->
+
   <!-- VLibras -->
   <div vw class="enabled">
     <div vw-access-button class="active"></div>
@@ -208,7 +258,44 @@
   </div>
   <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
   <script>
-    new window.VLibras.Widget('https://vlibras.gov.br/app');
+    function inicializarVLibras() {
+        if (typeof window.VLibras !== 'undefined') {
+            try {
+                new window.VLibras.Widget('https://vlibras.gov.br/app');
+                console.log('VLibras inicializado com sucesso');
+            } catch (error) {
+                console.error('Erro ao inicializar VLibras:', error);
+            }
+        } else {
+            setTimeout(() => {
+                if (typeof window.VLibras !== 'undefined') {
+                    try {
+                        new window.VLibras.Widget('https://vlibras.gov.br/app');
+                        console.log('VLibras inicializado com sucesso (retry)');
+                    } catch (error) {
+                        console.error('Erro ao inicializar VLibras (retry):', error);
+                    }
+                } else {
+                    setTimeout(() => {
+                        if (typeof window.VLibras !== 'undefined') {
+                            try {
+                                new window.VLibras.Widget('https://vlibras.gov.br/app');
+                                console.log('VLibras inicializado com sucesso (retry 2)');
+                            } catch (error) {
+                                console.error('Erro ao inicializar VLibras (retry 2):', error);
+                            }
+                        }
+                    }, 2000);
+                }
+            }, 1000);
+        }
+    }
+    window.addEventListener('load', inicializarVLibras);
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', inicializarVLibras);
+    } else {
+        inicializarVLibras();
+    }
   </script>
 
   <script src="registro_presenca.js"></script>

@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!-- CSS Base -->
-    <link rel="stylesheet" href="../styles/base.css">
+    <link rel="stylesheet" href="../../styles/base.css">
     <!-- CSS Separado -->
     <link rel="stylesheet" href="certificados.css">
 </head>
@@ -45,32 +45,6 @@
             <p class="lead">Visualize e baixe seus certificados de treinamentos concluídos</p>
         </div>
 
-        <div class="card">
-
-            <!-- Seção de Filtros -->
-            <h2>🔍 Filtros</h2>
-            <div class="filter-row">
-                <div class="filter-group">
-                    <label for="buscar">Buscar</label>
-                    <select id="buscar" class="filter-select">
-                        <option value="">Todos os certificados</option>
-                        <option value="2024">2024</option>
-                        <option value="2023">2023</option>
-                        <option value="2022">2022</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label for="categoria">Categoria</label>
-                    <select id="categoria" class="filter-select">
-                        <option value="">Todas as categorias</option>
-                        <option value="seguranca">Segurança</option>
-                        <option value="operacional">Operacional</option>
-                        <option value="administrativo">Administrativo</option>
-                    </select>
-                </div>
-                <button class="btn-filtrar">Filtrar</button>
-            </div>
-        </div>
 
         <!-- Lista de Certificados -->
         <div class="card">
@@ -82,8 +56,8 @@
                 <div class="empty-state">
                     <i class="fa-solid fa-certificate"></i>
                     <h3>Nenhum certificado disponível ainda</h3>
-                    <p>Complete seus treinamentos para obter certificados.</p>
-                    <p>Os certificados aparecerão automaticamente quando você atingir 100% de progresso em um treinamento.</p>
+                    <p>Os certificados aparecerão automaticamente quando o instrutor concluir o treinamento.</p>
+                    <p>Continue participando dos treinamentos para obter seus certificados!</p>
                 </div>
             </div>
             
@@ -98,13 +72,42 @@
         <a href="https://www.metro.sp.gov.br/atendimento/fale-conosco.aspx" target="_blank">
             <div><i class="fa-solid fa-phone"></i> Fale conosco</div>
         </a>
-        <a href="https://www.metro.sp.gov.br/treinamentos/" target="_blank">
-            <div><i class="fa-solid fa-graduation-cap"></i> Treinamentos</div>
+        <a href="https://www.metro.sp.gov.br/atendimento/ouvidoria.aspx" target="_blank">
+            <div><i class="fa-regular fa-comment-dots"></i> Ouvidoria</div>
         </a>
-        <a href="https://www.metro.sp.gov.br/ajuda/" target="_blank">
-            <div><i class="fa-solid fa-question-circle"></i> Ajuda</div>
+        <div><i class="fa-regular fa-clock"></i> 8h às 18h</div>
+        <a href="https://www.metro.sp.gov.br/atendimento/fale-conosco.aspx" target="_blank">
+            <div><i class="fa-solid fa-envelope"></i> SMS</div>
         </a>
     </footer>
+
+    <!-- ======= ACESSIBILIDADE ======= -->
+    <!-- 1. Link de pular para o conteúdo -->
+    <a class="skip-link" href="#conteudo">Pular para o conteúdo principal</a>
+
+    <!-- 2. Texto só para leitores de tela -->
+    <style>
+      .skip-link {
+        position: absolute; left: -9999px; top: auto; width: 1px; height: 1px; overflow: hidden;
+      }
+      .skip-link:focus {
+        position: static; width: auto; height: auto; padding: .5rem 1rem; background: #eee;
+      }
+      .sr-only {
+        position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden;
+        clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+      }
+      :focus { outline: 3px solid #000; outline-offset: 2px; }
+    </style>
+
+    <!-- 3. Região para mensagens automáticas do leitor de tela -->
+    <div aria-live="polite" class="sr-only" id="mensagens"></div>
+
+    <!-- 4. Exemplo de alerta de erro/sucesso para leitores de tela -->
+    <div role="alert" id="status-form" class="sr-only">
+      Preencha os campos obrigatórios.
+    </div>
+    <!-- ======= FIM DA ACESSIBILIDADE ======= -->
 
     <!-- VLibras -->
     <div vw class="enabled">
@@ -119,9 +122,3 @@
 </body>
 
 </html>
-
-
-
-
-
-

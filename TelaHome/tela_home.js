@@ -1,5 +1,53 @@
-// VLibras Widget
-new window.VLibras.Widget('https://vlibras.gov.br/app');
+// ===== INICIALIZAÇÃO DO VLIBRAS =====
+function inicializarVLibras() {
+    // Verifica se o VLibras já foi carregado
+    if (typeof window.VLibras !== 'undefined') {
+        try {
+            // Inicializa o VLibras
+            new window.VLibras.Widget('https://vlibras.gov.br/app');
+            console.log('VLibras inicializado com sucesso');
+        } catch (error) {
+            console.error('Erro ao inicializar VLibras:', error);
+        }
+    } else {
+        // Se o VLibras não foi carregado ainda, tenta novamente após um delay
+        setTimeout(() => {
+            if (typeof window.VLibras !== 'undefined') {
+                try {
+                    new window.VLibras.Widget('https://vlibras.gov.br/app');
+                    console.log('VLibras inicializado com sucesso (retry)');
+                } catch (error) {
+                    console.error('Erro ao inicializar VLibras (retry):', error);
+                }
+            } else {
+                console.warn('VLibras não foi carregado. Verifique a conexão com a internet.');
+                // Tentar uma vez mais após outro delay
+                setTimeout(() => {
+                    if (typeof window.VLibras !== 'undefined') {
+                        try {
+                            new window.VLibras.Widget('https://vlibras.gov.br/app');
+                            console.log('VLibras inicializado com sucesso (retry 2)');
+                        } catch (error) {
+                            console.error('Erro ao inicializar VLibras (retry 2):', error);
+                        }
+                    }
+                }, 2000);
+            }
+        }, 1000);
+    }
+}
+
+// Inicializar VLibras quando a página carregar
+window.addEventListener('load', function() {
+    inicializarVLibras();
+});
+
+// Também tentar inicializar quando o script do VLibras carregar
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', inicializarVLibras);
+} else {
+    inicializarVLibras();
+}
 
 // Função para fazer logout
 async function logout() {

@@ -14,6 +14,8 @@ Abra o arquivo: `2025_maua_pii_t3_sub2_controle_treinamentos_metro_sp-tela_login
 - **Usuário:** `instrutor`
 - **Senha:** `metro123`
 
+**Nota:** Instrutor usa **usuário/email**, não RG Metro
+
 ### **Após o Login:**
 - Será redirecionado para a **Tela Home do Instrutor**
 - Pode gerenciar treinamentos e colaboradores
@@ -23,10 +25,17 @@ Abra o arquivo: `2025_maua_pii_t3_sub2_controle_treinamentos_metro_sp-tela_login
 
 ## 🎓 **Acesso do Aluno**
 
+### **Pré-requisito:**
+1. O **Instrutor** deve cadastrar o colaborador primeiro em **Cadastro de Colaboradores**
+2. Durante o cadastro, o instrutor define:
+   - RG Metro do colaborador (7 dígitos)
+   - Senha inicial escolhida pelo colaborador
+   - Outros dados (nome, email, cargo, setor)
+
 ### **Credenciais:**
 - **Tipo:** Selecione "Aluno"
-- **Usuário:** [Deve ser cadastrado pelo instrutor]
-- **Senha:** [Deve ser cadastrada pelo instrutor]
+- **RG Metro:** [7 dígitos definidos no cadastro]
+- **Senha:** [Senha escolhida no cadastro]
 
 ### **Após o Login:**
 - Será redirecionado para a **Tela Home do Aluno**
@@ -36,10 +45,11 @@ Abra o arquivo: `2025_maua_pii_t3_sub2_controle_treinamentos_metro_sp-tela_login
 
 ## ⚠️ **Importante**
 
-- **Instrutor:** Acesso direto com credenciais fixas
-- **Aluno:** Precisa ser cadastrado pelo instrutor primeiro
-- Os dados são armazenados no localStorage do navegador
-- Para limpar dados, limpe o localStorage do navegador
+- **Instrutor:** Login com **usuário/email** + senha (acesso direto)
+- **Aluno:** Login com **RG Metro** (7 dígitos) + senha (precisa ser cadastrado)
+- O campo de entrada muda automaticamente ao selecionar o tipo de usuário
+- Os dados são armazenados no banco de dados MongoDB (ou localStorage como fallback)
+- Para limpar dados locais, limpe o localStorage do navegador
 
 ---
 

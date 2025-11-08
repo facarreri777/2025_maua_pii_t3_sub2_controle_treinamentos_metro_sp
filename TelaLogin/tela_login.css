@@ -10,6 +10,8 @@ body {
     background-color: var(--azul-fundo);
     color: var(--white);
     height: 100vh;
+    position: relative;
+    overflow-x: hidden;
 }
 
 
@@ -42,11 +44,11 @@ h1 {
     transform: translate(-50%, -50%);
     background-color: var(--white);
     color: var(--azul-escuro);
-    width: 420px;
+    width: 600px;
     max-width: 90vw;
     border-radius: 12px;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-    padding: 0 0 30px 0;
+    padding: 0 0 50px 0;
 }
 
 /* Desabilita o efeito hover do card na tela de login */
@@ -61,7 +63,7 @@ h1 {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 18px 22px 10px 22px;
+    padding: 25px 35px 15px 35px;
 }
 
 .card-header img {
@@ -84,42 +86,42 @@ h1 {
 /* Seleção de tipo de usuário */
 
 .user-type-selection {
-    padding: 20px 30px 15px 30px;
+    padding: 30px 50px 25px 50px;
 }
 
 .user-type-selection h3 {
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 600;
-    margin: 0 0 15px 0;
+    margin: 0 0 20px 0;
     color: var(--azul-escuro);
     text-align: center;
 }
 
 .user-type-buttons {
     display: flex;
-    gap: 15px;
+    gap: 35px;
     justify-content: center;
     align-items: center;
-    max-width: 300px;
+    max-width: 480px;
     margin: 0 auto;
 }
 
 .user-type-btn {
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 12px 24px;
+    gap: 12px;
+    padding: 16px 32px;
     border: 2px solid var(--azul-claro);
     background-color: var(--white);
     color: var(--azul-escuro);
     border-radius: 8px;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 500;
     transition: all 0.3s ease;
     flex: 1;
     justify-content: center;
-    min-width: 120px;
+    min-width: 160px;
 }
 
 .user-type-btn:hover {
@@ -144,13 +146,13 @@ h1 {
 /* Campos */
 
 .form {
-    padding: 10px 30px 0 30px;
+    padding: 20px 50px 0 50px;
 }
 
 .input-box {
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
 .input-icon {
@@ -199,20 +201,21 @@ h1 {
 .btn {
     display: block;
     width: 85%;
-    margin: 10px auto 0 auto;
+    margin: 30px auto 0 auto;
     background-color: var(--azul-fundo);
     color: var(--white);
     border: none;
     border-radius: 10px;
-    font-size: 16px;
+    font-size: 17px;
     font-weight: bold;
-    padding: 12px 0;
+    padding: 16px 0;
     cursor: pointer;
 }
 
 .btn:hover {
     background-color: var(--azul-escuro);
 }
+
 
 /* ===== RESPONSIVIDADE ===== */
 @media (max-width: 768px) {

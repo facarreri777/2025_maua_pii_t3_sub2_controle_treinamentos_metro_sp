@@ -9,6 +9,8 @@ function limparInputs() {
 
 // Seleção de tipo de usuário
 const userTypeButtons = document.querySelectorAll('.user-type-btn');
+const inputField = document.querySelector('input[type="text"]');
+
 userTypeButtons.forEach(button => {
     button.addEventListener('click', function() {
         // Remove a classe active de todos os botões
@@ -17,7 +19,18 @@ userTypeButtons.forEach(button => {
         this.classList.add('active');
         // Atualiza o tipo de usuário selecionado
         selectedUserType = this.getAttribute('data-type');
-        // Removido: limpeza automática ao trocar tipo
+        
+        // Atualiza o placeholder baseado no tipo
+        if (selectedUserType === 'aluno') {
+            inputField.placeholder = 'RG Metro (7 dígitos)';
+            inputField.maxLength = 7;
+        } else if (selectedUserType === 'instrutor') {
+            inputField.placeholder = 'Email';
+            inputField.removeAttribute('maxlength');
+        }
+        
+        // Limpa o campo ao trocar tipo
+        limparInputs();
     });
 });
 
@@ -34,16 +47,31 @@ document.getElementById('loginBtn').addEventListener('click', async function() {
     }
 
     try {
+        // Preparar dados de login baseado no tipo de usuário
+        let loginData;
+        if (selectedUserType === 'aluno') {
+            // Aluno usa RG Metro
+            loginData = {
+                rgMetro: username,
+                senha: password,
+                tipoLogin: 'aluno'
+            };
+        } else if (selectedUserType === 'instrutor') {
+            // Instrutor usa email ou username
+            loginData = {
+                email: username,
+                senha: password,
+                tipoLogin: 'instrutor'
+            };
+        }
+
         // Tentar login no backend
         const response = await fetch('http://localhost:3000/api/auth/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({
-                email: username,
-                senha: password
-            })
+            body: JSON.stringify(loginData)
         });
 
         const data = await response.json();
@@ -66,35 +94,8 @@ document.getElementById('loginBtn').addEventListener('click', async function() {
         }
     } catch (error) {
         console.error('Erro de conexão:', error);
-        
-        // Fallback para sistema local se backend não estiver rodando
-        if (selectedUserType === 'aluno') {
-            const alunosCadastrados = JSON.parse(localStorage.getItem('alunos_cadastrados') || '[]');
-            const aluno = alunosCadastrados.find(a => a.usuario === username && a.senha === password);
-            
-            if (aluno) {
-                localStorage.setItem('token', 'aluno_token_' + Date.now());
-                localStorage.setItem('user', JSON.stringify(aluno));
-                window.location.href = '../TelaHomeAluno/aluno_home.html';
-            } else {
-                alert('Usuário ou senha inválidos! Verifique se você foi cadastrado pelo instrutor.');
-                limparInputs();
-            }
-        } else if (selectedUserType === 'instrutor') {
-            if (username === 'instrutor' && password === 'metro123') {
-                localStorage.setItem('token', 'instrutor_token_' + Date.now());
-                localStorage.setItem('user', JSON.stringify({
-                    id: 'instrutor',
-                    nome: 'Instrutor',
-                    tipo: 'instrutor',
-                    email: 'instrutor@metro.sp.gov.br'
-                }));
-                window.location.href = '../TelaHome/tela_home.html';
-            } else {
-                alert('Credenciais do instrutor inválidas! Use: usuário="instrutor", senha="metro123"');
-                limparInputs();
-            }
-        }
+        alert('Falha ao conectar ao servidor. Verifique se o backend está rodando em http://localhost:3000');
+        limparInputs();
     }
 });
 
@@ -105,7 +106,50 @@ document.addEventListener('keypress', function(e) {
     }
 });
 
-// Limpar campos quando a página carrega
+
+// ===== INICIALIZAÇÃO DO VLIBRAS =====
+function inicializarVLibras() {
+    if (typeof window.VLibras !== 'undefined') {
+        try {
+            new window.VLibras.Widget('https://vlibras.gov.br/app');
+            console.log('VLibras inicializado com sucesso');
+        } catch (error) {
+            console.error('Erro ao inicializar VLibras:', error);
+        }
+    } else {
+        setTimeout(() => {
+            if (typeof window.VLibras !== 'undefined') {
+                try {
+                    new window.VLibras.Widget('https://vlibras.gov.br/app');
+                    console.log('VLibras inicializado com sucesso (retry)');
+                } catch (error) {
+                    console.error('Erro ao inicializar VLibras (retry):', error);
+                }
+            } else {
+                setTimeout(() => {
+                    if (typeof window.VLibras !== 'undefined') {
+                        try {
+                            new window.VLibras.Widget('https://vlibras.gov.br/app');
+                            console.log('VLibras inicializado com sucesso (retry 2)');
+                        } catch (error) {
+                            console.error('Erro ao inicializar VLibras (retry 2):', error);
+                        }
+                    }
+                }, 2000);
+            }
+        }, 1000);
+    }
+}
+
+// Inicializar VLibras quando a página carregar
 window.addEventListener('load', function() {
     limparInputs();
+    inicializarVLibras();
 });
+
+// Também tentar inicializar quando o script do VLibras carregar
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', inicializarVLibras);
+} else {
+    inicializarVLibras();
+}

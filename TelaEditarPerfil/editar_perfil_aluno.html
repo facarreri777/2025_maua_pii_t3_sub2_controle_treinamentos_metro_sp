@@ -155,23 +155,20 @@
                     </h3>
                     
                     <div class="form-row">
-                        <div class="form-group">
+                        <div class="form-group full-width">
                             <label for="senhaAtual">Senha Atual *</label>
                             <input type="password" id="senhaAtual" name="senhaAtual" autocomplete="current-password">
-                        </div>
-                        <div class="form-group">
-                            <label for="novaSenha">Nova Senha</label>
-                            <input type="password" id="novaSenha" name="novaSenha" autocomplete="new-password">
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="confirmarNovaSenha">Confirmar Nova Senha</label>
-                            <input type="password" id="confirmarNovaSenha" name="confirmarNovaSenha" autocomplete="new-password">
+                            <label for="novaSenha">Nova Senha</label>
+                            <input type="password" id="novaSenha" name="novaSenha" autocomplete="new-password">
                         </div>
                         <div class="form-group">
-                            <!-- Campo vazio para manter o layout -->
+                            <label for="confirmarNovaSenha">Confirmar Nova Senha</label>
+                            <input type="password" id="confirmarNovaSenha" name="confirmarNovaSenha" autocomplete="new-password">
                         </div>
                     </div>
                 </div>
@@ -203,6 +200,34 @@
         </a>
     </footer>
 
+    <!-- ======= ACESSIBILIDADE ======= -->
+    <!-- 1. Link de pular para o conteúdo -->
+    <a class="skip-link" href="#conteudo">Pular para o conteúdo principal</a>
+
+    <!-- 2. Texto só para leitores de tela -->
+    <style>
+      .skip-link {
+        position: absolute; left: -9999px; top: auto; width: 1px; height: 1px; overflow: hidden;
+      }
+      .skip-link:focus {
+        position: static; width: auto; height: auto; padding: .5rem 1rem; background: #eee;
+      }
+      .sr-only {
+        position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden;
+        clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+      }
+      :focus { outline: 3px solid #000; outline-offset: 2px; }
+    </style>
+
+    <!-- 3. Região para mensagens automáticas do leitor de tela -->
+    <div aria-live="polite" class="sr-only" id="mensagens"></div>
+
+    <!-- 4. Exemplo de alerta de erro/sucesso para leitores de tela -->
+    <div role="alert" id="status-form" class="sr-only">
+      Preencha os campos obrigatórios.
+    </div>
+    <!-- ======= FIM DA ACESSIBILIDADE ======= -->
+
     <!-- VLibras -->
     <div vw class="enabled">
         <div vw-access-button class="active"></div>
@@ -212,6 +237,7 @@
     </div>
 
     <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script src="https://cdn.userway.org/widget.js" data-account="SEU_ID_DA_USERWAY_AQUI"></script>
     <script src="editar_perfil_aluno.js"></script>
 
 </body>

@@ -74,7 +74,7 @@ body {
     background: #6c757d;
     color: #fff;
     border: none;
-    padding: 12px 20px;
+    padding: 10px 16px;
     border-radius: 6px;
     cursor: pointer;
     transition: all 0.3s;
@@ -86,6 +86,8 @@ body {
     margin: 20px 0 20px 20px;
     position: relative;
     z-index: 10;
+    width: fit-content;
+    white-space: nowrap;
 }
 
 .btn-voltar:hover {
@@ -373,6 +375,10 @@ h1 {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 15px;
+}
+
+.form-group.full-width {
+    grid-column: 1 / -1;
 }
 
 /* ===== BOTÕES DE AÇÃO ===== */

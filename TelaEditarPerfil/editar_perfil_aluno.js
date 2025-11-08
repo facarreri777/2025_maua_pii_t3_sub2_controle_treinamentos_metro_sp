@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
     carregarDadosDoSistema();
     carregarDadosPerfil();
     configurarEventos();
+    inicializarVLibras();
 });
 
 // Carrega dados do sistema (localStorage/sessão)
@@ -369,3 +370,31 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
+
+// ===== INICIALIZAÇÃO DO VLIBRAS =====
+function inicializarVLibras() {
+    // Verifica se o VLibras já foi carregado
+    if (typeof window.VLibras !== 'undefined') {
+        try {
+            // Inicializa o VLibras
+            new window.VLibras.Widget('https://vlibras.gov.br/app/');
+            console.log('VLibras inicializado com sucesso');
+        } catch (error) {
+            console.error('Erro ao inicializar VLibras:', error);
+        }
+    } else {
+        // Se o VLibras não foi carregado ainda, tenta novamente após um delay
+        setTimeout(() => {
+            if (typeof window.VLibras !== 'undefined') {
+                try {
+                    new window.VLibras.Widget('https://vlibras.gov.br/app/');
+                    console.log('VLibras inicializado com sucesso (retry)');
+                } catch (error) {
+                    console.error('Erro ao inicializar VLibras (retry):', error);
+                }
+            } else {
+                console.warn('VLibras não foi carregado. Verifique a conexão com a internet.');
+            }
+        }, 1000);
+    }
+}

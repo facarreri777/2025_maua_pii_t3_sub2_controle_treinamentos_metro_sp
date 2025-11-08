@@ -1,5 +1,272 @@
 /* ===== CSS ESPECÍFICO DA PÁGINA DE TREINAMENTOS ===== */
 
+/* ===== FILTROS POR CATEGORIA (VISUAL) ===== */
+.category-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.category-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    border: 2px solid #e5e7eb;
+    background: white;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
+    font-size: 14px;
+    font-weight: 600;
+    color: #4b5563;
+    position: relative;
+    opacity: 1;
+}
+
+.category-chip[style*="display: none"] {
+    opacity: 0;
+    transform: scale(0.8);
+}
+
+.category-chip i {
+    font-size: 16px;
+    transition: transform 0.3s ease;
+}
+
+.category-chip span:not(.chip-count) {
+    display: inline-block;
+}
+
+.chip-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 24px;
+    height: 24px;
+    padding: 0 8px;
+    background: #e5e7eb;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #374151;
+    transition: all 0.3s ease;
+}
+
+.category-chip:hover {
+    border-color: #002776;
+    background: #f0f4ff;
+    color: #002776;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 39, 118, 0.15);
+}
+
+.category-chip:hover i {
+    transform: scale(1.1);
+}
+
+.category-chip.active {
+    border-color: #002776;
+    background: linear-gradient(135deg, #002776 0%, #003d9e 100%);
+    color: white;
+    box-shadow: 0 4px 12px rgba(0, 39, 118, 0.3);
+}
+
+.category-chip.active .chip-count {
+    background: rgba(255, 255, 255, 0.3);
+    color: white;
+}
+
+.category-chip:active {
+    transform: translateY(0);
+}
+
+/* Cores específicas por categoria */
+.category-chip[data-categoria="seguranca"]:hover {
+    border-color: #dc2626;
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.category-chip[data-categoria="seguranca"].active {
+    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+}
+
+.category-chip[data-categoria="operacional"]:hover {
+    border-color: #2563eb;
+    background: #dbeafe;
+    color: #1e3a8a;
+}
+
+.category-chip[data-categoria="operacional"].active {
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+}
+
+.category-chip[data-categoria="administrativo"]:hover {
+    border-color: #9333ea;
+    background: #f3e8ff;
+    color: #6b21a8;
+}
+
+.category-chip[data-categoria="administrativo"].active {
+    background: linear-gradient(135deg, #9333ea 0%, #7e22ce 100%);
+}
+
+.category-chip[data-categoria="tecnico"]:hover {
+    border-color: #ea580c;
+    background: #ffedd5;
+    color: #9a3412;
+}
+
+.category-chip[data-categoria="tecnico"].active {
+    background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%);
+}
+
+.category-chip[data-categoria="gerencial"]:hover {
+    border-color: #059669;
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.category-chip[data-categoria="gerencial"].active {
+    background: linear-gradient(135deg, #059669 0%, #047857 100%);
+}
+
+/* ===== BARRA DE BUSCA ===== */
+.search-bar {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.search-input-wrapper {
+    flex: 1;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-input-wrapper i {
+    position: absolute;
+    left: 16px;
+    color: #9ca3af;
+    font-size: 16px;
+}
+
+.search-input {
+    width: 100%;
+    padding: 14px 16px 14px 48px;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    font-size: 15px;
+    transition: all 0.3s ease;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #002776;
+    box-shadow: 0 0 0 3px rgba(0, 39, 118, 0.1);
+}
+
+.btn-clear-filters {
+    padding: 14px 24px;
+    background: #ef4444;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+}
+
+.btn-clear-filters:hover {
+    background: #dc2626;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+.btn-clear-filters:active {
+    transform: translateY(0);
+}
+
+/* ===== EMPTY STATE COM FILTROS ===== */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.empty-state i {
+    font-size: 80px;
+    color: #d1d5db;
+    margin-bottom: 20px;
+}
+
+.empty-state h3 {
+    font-size: 24px;
+    color: #374151;
+    margin-bottom: 12px;
+}
+
+.empty-state p {
+    font-size: 16px;
+    color: #6b7280;
+    margin-bottom: 24px;
+}
+
+.empty-state .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.empty-state .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 39, 118, 0.2);
+}
+
+/* ===== RESPONSIVO ===== */
+@media (max-width: 768px) {
+    .category-filters {
+        gap: 8px;
+    }
+    
+    .category-chip {
+        padding: 10px 16px;
+        font-size: 13px;
+    }
+    
+    .category-chip i {
+        font-size: 14px;
+    }
+    
+    .chip-count {
+        min-width: 20px;
+        height: 20px;
+        font-size: 11px;
+    }
+    
+    .search-bar {
+        flex-direction: column;
+    }
+    
+    .btn-clear-filters {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
 :root {
     --blue-escuro: #002776;
     --gray-bar: #f2f2f2;
@@ -186,7 +453,7 @@ p.lead {
     background: #6c757d;
     color: #fff;
     border: none;
-    padding: 12px 20px;
+    padding: 10px 16px;
     border-radius: 6px;
     cursor: pointer;
     transition: all 0.3s;
@@ -198,6 +465,8 @@ p.lead {
     margin: 20px 0 20px 20px;
     position: relative;
     z-index: 10;
+    width: fit-content;
+    white-space: nowrap;
 }
 
 .btn-voltar:hover {
@@ -760,4 +1029,42 @@ footer.rodape a:hover {
         flex: 1;
         justify-content: center;
     }
+}
+
+/* ===== ESTILOS PARA VAGAS ===== */
+.vagas-disponiveis {
+    color: #28a745 !important;
+    font-weight: 600;
+}
+
+.vagas-esgotadas {
+    color: #dc3545 !important;
+    font-weight: 600;
+}
+
+.detail-value.vagas-disponiveis {
+    background: #d4edda;
+    padding: 4px 8px;
+    border-radius: 4px;
+    border: 1px solid #c3e6cb;
+}
+
+.detail-value.vagas-esgotadas {
+    background: #f8d7da;
+    padding: 4px 8px;
+    border-radius: 4px;
+    border: 1px solid #f5c6cb;
+}
+
+/* ===== ESTILOS PARA BOTÕES ===== */
+.btn-inscrito {
+    background: #28a745 !important;
+    color: white !important;
+    cursor: not-allowed !important;
+    opacity: 0.8;
+}
+
+.btn-inscrito:hover {
+    background: #28a745 !important;
+    transform: none !important;
 }

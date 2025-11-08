@@ -39,7 +39,7 @@
   </div>
 
   <main class="main-content">
-    <a href="../TelasAluno/2025_maua_pii_t3_sub2_controle_treinamentos_metro_sp-tela-aluno-home/TelaAlunoHome/aluno_home.html" class="btn-voltar">
+    <a href="../TelaHomeAluno/aluno_home.html" class="btn-voltar">
       <i class="fa-solid fa-arrow-left"></i> Voltar ao Dashboard
     </a>
 
@@ -53,40 +53,40 @@
 
     <div class="card">
 
-    <!-- Seção de Filtros -->
+    <!-- Seção de Filtros por Categoria (Visual) -->
     <div class="card filter-card">
       <div class="card-header">
-        <h2><i class="fa-solid fa-filter"></i> Filtros</h2>
+        <h2><i class="fa-solid fa-filter"></i> Filtrar por Categoria</h2>
       </div>
       <div class="card-body">
-        <div class="filter-row">
-          <div class="filter-group">
-            <label for="status-filter">Status</label>
-            <select id="status-filter" class="filter-select">
-              <option value="">Todos os treinamentos</option>
-              <option value="disponivel">Disponível</option>
-              <option value="em-andamento">Em Andamento</option>
-              <option value="concluido">Concluído</option>
-            </select>
-          </div>
-          <div class="filter-group">
-            <label for="categoria-filter">Categoria</label>
-            <select id="categoria-filter" class="filter-select">
-              <option value="">Todas as categorias</option>
-              <option value="seguranca">Segurança</option>
-              <option value="operacional">Operacional</option>
-              <option value="administrativo">Administrativo</option>
-              <option value="tecnico">Técnico</option>
-            </select>
-          </div>
-          <div class="filter-group">
-            <label for="search-input">Buscar</label>
-            <input type="text" id="search-input" class="filter-input" placeholder="Digite o nome do treinamento...">
-          </div>
-          <button class="btn-filtrar" onclick="aplicarFiltros()">
-            <i class="fa-solid fa-search"></i> Filtrar
+        <!-- Filtros em Pills/Chips -->
+        <div class="category-filters">
+          <button class="category-chip active" data-categoria="" onclick="filtrarPorCategoria('')">
+            <i class="fa-solid fa-list"></i>
+            <span>Todos</span>
+          </button>
+          <button class="category-chip" data-categoria="seguranca" onclick="filtrarPorCategoria('seguranca')">
+            <i class="fa-solid fa-shield-halved"></i>
+            <span>Segurança</span>
+          </button>
+          <button class="category-chip" data-categoria="operacional" onclick="filtrarPorCategoria('operacional')">
+            <i class="fa-solid fa-cogs"></i>
+            <span>Operacional</span>
+          </button>
+          <button class="category-chip" data-categoria="administrativo" onclick="filtrarPorCategoria('administrativo')">
+            <i class="fa-solid fa-briefcase"></i>
+            <span>Administrativo</span>
+          </button>
+          <button class="category-chip" data-categoria="tecnico" onclick="filtrarPorCategoria('tecnico')">
+            <i class="fa-solid fa-wrench"></i>
+            <span>Técnico</span>
+          </button>
+          <button class="category-chip" data-categoria="gerencial" onclick="filtrarPorCategoria('gerencial')">
+            <i class="fa-solid fa-user-tie"></i>
+            <span>Gerencial</span>
           </button>
         </div>
+
       </div>
     </div>
 
@@ -132,9 +132,12 @@
 
     <!-- Lista de Treinamentos -->
     <div class="card treinamentos-card">
-      <div class="card-header">
-        <h2><i class="fa-solid fa-list"></i> Treinamentos Disponíveis</h2>
-        <div class="view-controls">
+      <div class="card-header" style="display:flex;justify-content:space-between;align-items:center;gap:10px;">
+        <h2 style="margin:0;display:flex;align-items:center;gap:8px"><i class="fa-solid fa-list"></i> Treinamentos Disponíveis</h2>
+        <div class="view-controls" style="display:flex;gap:8px;align-items:center;">
+          <button class="view-btn" onclick="(async()=>{ if (window.carregarTreinamentos) { await window.carregarTreinamentos(); } if (window.atualizarEstatisticas) { await window.atualizarEstatisticas(); } })();" title="Recarregar">
+            <i class="fa-solid fa-rotate"></i>
+          </button>
           <button class="view-btn active" onclick="alternarVisualizacao('grid')" title="Visualização em Grid">
             <i class="fa-solid fa-th"></i>
           </button>
@@ -175,6 +178,34 @@
     </a>
   </footer>
 
+  <!-- ======= ACESSIBILIDADE ======= -->
+  <!-- 1. Link de pular para o conteúdo -->
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo principal</a>
+
+  <!-- 2. Texto só para leitores de tela -->
+  <style>
+    .skip-link {
+      position: absolute; left: -9999px; top: auto; width: 1px; height: 1px; overflow: hidden;
+    }
+    .skip-link:focus {
+      position: static; width: auto; height: auto; padding: .5rem 1rem; background: #eee;
+    }
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden;
+      clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
+    :focus { outline: 3px solid #000; outline-offset: 2px; }
+  </style>
+
+  <!-- 3. Região para mensagens automáticas do leitor de tela -->
+  <div aria-live="polite" class="sr-only" id="mensagens"></div>
+
+  <!-- 4. Exemplo de alerta de erro/sucesso para leitores de tela -->
+  <div role="alert" id="status-form" class="sr-only">
+    Preencha os campos obrigatórios.
+  </div>
+  <!-- ======= FIM DA ACESSIBILIDADE ======= -->
+
   <!-- VLibras -->
   <div vw class="enabled">
     <div vw-access-button class="active"></div>
@@ -184,6 +215,7 @@
   </div>
 
   <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+  <script src="https://cdn.userway.org/widget.js" data-account="SEU_ID_DA_USERWAY_AQUI"></script>
   <script src="treinamentos.js"></script>
 
 </body>

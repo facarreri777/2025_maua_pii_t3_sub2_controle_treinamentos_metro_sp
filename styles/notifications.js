@@ -160,3 +160,29 @@ window.showInfo = (title, message, duration) => {
 window.showWarning = (title, message, duration) => {
     return window.notificationManager.warning(title, message, duration);
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

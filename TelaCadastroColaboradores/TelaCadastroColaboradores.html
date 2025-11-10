@@ -1,0 +1,900 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Metrô - Cadastro de Colaboradores</title>
+
+    <!-- Ícone do Metrô de São Paulo (favicon) -->
+    <link rel="icon" type="image/png"
+        href="https://www.metro.sp.gov.br/wp-content/themes/metrosp/assets/images/favicon.png">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS Base -->
+    <link rel="stylesheet" href="../styles/base.css">
+    
+    <!-- Sistema de Notificações -->
+    <script src="../styles/notifications.js"></script>
+
+  <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        :root {
+            --blue-escuro: #002776;
+            --gray-bar: #f2f2f2;
+            --card-border: #d6d6d6;
+            --max-width: 1000px;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            color: #111;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: #ffffff;
+        }
+
+
+        .btn-logout {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 8px 15px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-logout:hover {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Logo do Governo de SP */
+        .logo-governo {
+            background-color: #000;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 10px 30px;
+            min-height: 70px;
+        }
+
+        .logo-governo img {
+            height: 55px;
+        }
+
+
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* ===== HEADER DA PÁGINA ===== */
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 12px;
+            border: 1px solid #dee2e6;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .header-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--blue-escuro) 0%, #1e3a8a 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            box-shadow: 0 8px 25px rgba(0, 39, 118, 0.2);
+        }
+
+        .header-icon i {
+            font-size: 32px;
+            color: white;
+        }
+
+        h1 {
+            margin: 0 0 10px;
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--blue-escuro);
+            text-align: center;
+        }
+
+        .lead {
+            margin: 0;
+            color: #6c757d;
+            font-size: 16px;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        /* Formulário de Cadastro */
+        .cadastro-container {
+            width: 100%;
+            max-width: 600px;
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 6px 20px rgba(2, 39, 109, 0.08);
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--blue-escuro);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--blue-escuro);
+            box-shadow: 0 0 0 3px rgba(0, 39, 118, 0.1);
+            transform: translateY(-1px);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .btn-cadastrar {
+            flex: 1;
+            background: var(--blue-escuro);
+            color: white;
+            border: none;
+            padding: 18px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-cadastrar:hover {
+            background: #001a5c;
+        }
+
+        .btn-limpar {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+
+        .btn-limpar:hover {
+            background: #5a6268;
+        }
+
+
+        footer.rodape {
+            background: var(--gray-bar);
+            padding: 30px 20px;
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            align-items: center;
+            font-size: 15px;
+            flex-shrink: 0;
+        }
+
+        footer.rodape div {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #111;
+        }
+
+        footer.rodape a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        footer.rodape a:hover {
+            text-decoration: underline;
+        }
+
+        /* Toast de sucesso */
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 24px;
+      transform: translateX(-50%) translateY(8px);
+            background: #22c55e;
+      color: #fff;
+      border-radius: 12px;
+      padding: 12px 18px;
+      font-weight: 800;
+      box-shadow: 0 10px 30px rgba(0,0,0,.15);
+      opacity: 0;
+      transition: opacity .25s, transform .25s;
+      z-index: 9999;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+        /* Lista de Colaboradores */
+        .colaboradores-container {
+            width: 100%;
+            max-width: 600px;
+            background: #fff;
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 6px 20px rgba(2, 39, 109, 0.08);
+        }
+
+        .colaboradores-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+
+        .colaboradores-container h2 {
+            margin: 0;
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--blue-escuro);
+        }
+
+        .toggle-btn {
+            background: var(--blue-escuro);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 16px;
+        }
+
+        .toggle-btn:hover {
+            background: #001a5c;
+            transform: scale(1.1);
+        }
+
+        .toggle-btn.collapsed {
+            transform: rotate(180deg);
+        }
+
+        .busca-container {
+            margin: 15px 0;
+            padding: 0 20px;
+        }
+
+        .input-busca {
+            position: relative;
+            width: 100%;
+        }
+
+        .input-busca input {
+            width: 100%;
+            padding: 10px 40px 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .input-busca input:focus {
+            outline: none;
+            border-color: var(--blue-escuro);
+            box-shadow: 0 0 0 2px rgba(0, 64, 128, 0.1);
+        }
+
+        .input-busca i {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+            font-size: 16px;
+        }
+
+        .colaboradores-lista {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .colaborador-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f8f9fa;
+            padding: 12px 15px;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+        }
+
+        .colaborador-info h3 {
+            margin: 0 0 4px 0;
+            color: var(--blue-escuro);
+            font-size: 16px;
+        }
+
+        .colaborador-info p {
+            margin: 2px 0;
+            color: #666;
+            font-size: 12px;
+        }
+
+        .colaborador-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-remover {
+            background: #dc3545;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 12px;
+            color: white;
+            transition: background 0.3s;
+        }
+
+        .btn-remover:hover {
+            background: #c82333;
+        }
+
+
+        .sem-colaboradores {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 40px;
+        }
+
+        /* Mini Aba Flutuante */
+        .mini-aba {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: linear-gradient(135deg, var(--blue-escuro) 0%, #1e2a6b 100%);
+            color: white;
+            padding: 12px 18px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1000;
+            box-shadow: 0 6px 20px rgba(0, 39, 118, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+        }
+
+        .mini-aba:hover {
+            bottom: 15px;
+            padding: 14px 22px;
+            box-shadow: 0 8px 25px rgba(0, 39, 118, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .mini-aba:active {
+            transform: translateY(0);
+            box-shadow: 0 4px 15px rgba(0, 39, 118, 0.3);
+        }
+
+        .mini-aba .icon {
+            font-size: 18px;
+            margin-right: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .mini-aba:hover .icon {
+            transform: scale(1.1);
+        }
+
+        .mini-aba .text {
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        /* Painel de Informações */
+        .info-panel {
+            position: fixed;
+            top: 50%;
+            left: -320px;
+            transform: translateY(-50%);
+            width: 320px;
+            background: white;
+            border-radius: 0 16px 16px 0;
+            box-shadow: 0 8px 32px rgba(0, 39, 118, 0.15);
+            transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 999;
+            max-height: 70vh;
+            overflow-y: auto;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .info-panel.show {
+            left: 0;
+        }
+
+        .info-panel-header {
+            background: linear-gradient(135deg, var(--blue-escuro) 0%, #1e2a6b 100%);
+            color: white;
+            padding: 16px 18px;
+            border-radius: 0 16px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .info-panel-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.3) 50%, transparent 100%);
+        }
+
+        .info-panel-header h3 {
+            margin: 0;
+            font-size: 15px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .info-panel-close {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            padding: 6px;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .info-panel-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .info-panel-content {
+            padding: 18px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+        }
+
+        .info-section {
+            margin-bottom: 20px;
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 12px;
+            border: 1px solid rgba(0, 39, 118, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .info-section:hover {
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 4px 12px rgba(0, 39, 118, 0.1);
+            transform: translateY(-1px);
+        }
+
+        .info-section h4 {
+            color: var(--blue-escuro);
+            margin: 0 0 12px 0;
+            font-size: 15px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid rgba(0, 39, 118, 0.1);
+        }
+
+        .info-section p {
+            margin: 8px 0;
+            color: #555;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .info-section ul {
+            margin: 8px 0;
+            padding-left: 16px;
+        }
+
+        .info-section li {
+            color: #555;
+            font-size: 13px;
+            margin: 4px 0;
+            position: relative;
+        }
+
+        .info-section li::before {
+            content: '•';
+            color: var(--blue-escuro);
+            font-weight: bold;
+            position: absolute;
+            left: -12px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .stat-item {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 12px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid rgba(0, 39, 118, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover {
+            background: linear-gradient(135deg, #e9ecef 0%, #f8f9fa 100%);
+            transform: scale(1.02);
+        }
+
+        .stat-number {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--blue-escuro);
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .cadastro-container {
+                padding: 30px 20px;
+            }
+
+            .colaborador-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .colaborador-actions {
+                align-self: flex-end;
+            }
+        }
+  </style>
+</head>
+
+<body>
+
+    <header class="topo">
+        Cadastro de Colaboradores
+        <button class="btn-logout" onclick="logout()" title="Sair do sistema">
+            <i class="fa-solid fa-sign-out-alt"></i> Sair
+        </button>
+</header>
+
+    <!-- Logo do Governo -->
+    <div class="logo-governo">
+        <img src="imagens/logoGov.png" alt="Governo do Estado de São Paulo">
+    </div>
+
+    <main class="main-content">
+        <a href="../TelaHome/tela_home.html" class="btn-voltar">
+            <i class="fa-solid fa-arrow-left"></i> Voltar ao Dashboard
+        </a>
+
+        <div class="page-header">
+            <div class="header-icon">
+                <i class="fa-solid fa-user-plus"></i>
+            </div>
+            <h1>Cadastrar Novo Colaborador</h1>
+            <p class="lead">Cadastre novos colaboradores no sistema do Metrô SP</p>
+        </div>
+
+        <div class="cadastro-container">
+            <form id="cadastroForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="nome">Nome Completo *</label>
+                        <input type="text" id="nome" name="nome" required autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="rgMetro">RG Metro (7 dígitos) *</label>
+                        <input type="text" id="rgMetro" name="rgMetro" pattern="[0-9]{7}" maxlength="7" placeholder="1234567" required autocomplete="off">
+  </div>
+</div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" name="email" required autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="telefone">Telefone</label>
+                        <input type="tel" id="telefone" name="telefone" autocomplete="off">
+                    </div>
+</div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="senha">Senha *</label>
+                        <input type="password" id="senha" name="senha" required autocomplete="new-password">
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmarSenha">Confirmar Senha *</label>
+                        <input type="password" id="confirmarSenha" name="confirmarSenha" required autocomplete="new-password">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="cargo">Cargo *</label>
+                        <select id="cargo" name="cargo" required autocomplete="off">
+                            <option value="">Selecione o cargo</option>
+                            <option value="Operador de Trem">Operador de Trem</option>
+                            <option value="Técnico de Manutenção">Técnico de Manutenção</option>
+                            <option value="Agente de Estação">Agente de Estação</option>
+                            <option value="Vigilante">Vigilante</option>
+                            <option value="Supervisor de Operação">Supervisor de Operação</option>
+                            <option value="Assistente Administrativo">Assistente Administrativo</option>
+                            <option value="Analista de Treinamento">Analista de Treinamento</option>
+                            <option value="Instrutor">Instrutor</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="setor">Setor *</label>
+                        <select id="setor" name="setor" required autocomplete="off">
+                            <option value="">Selecione o setor</option>
+                            <option value="Operação">Operação</option>
+                            <option value="Manutenção">Manutenção</option>
+                            <option value="Segurança">Segurança</option>
+                            <option value="Administrativo">Administrativo</option>
+                            <option value="Treinamento">Treinamento</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-buttons">
+                    <button type="submit" class="btn-cadastrar">
+                        <i class="fa-solid fa-user-plus"></i> Cadastrar Colaborador
+                    </button>
+                    <button type="button" class="btn-limpar" onclick="limparFormulario()">
+                        <i class="fa-solid fa-eraser"></i> Limpar Dados
+                    </button>
+                </div>
+            </form>
+          </div>
+
+        <!-- Lista de Colaboradores Cadastrados -->
+        <div class="colaboradores-container">
+            <div class="colaboradores-header" onclick="toggleColaboradores()">
+                <h2>👥 Colaboradores Cadastrados</h2>
+                <button class="toggle-btn" id="toggleBtn">⌄</button>
+          </div>
+            
+            <!-- Campo de Busca -->
+            <div class="busca-container" id="buscaContainer" style="display: block;">
+                <div class="input-busca">
+                    <input type="text" id="campoBusca" placeholder="Buscar por nome ou RG..." onkeyup="buscarColaboradores()">
+                    <i class="fa-solid fa-search"></i>
+                </div>
+          </div>
+            
+            <div id="colaboradoresLista" class="colaboradores-lista" style="display: block;">
+                <!-- Colaboradores serão listados aqui -->
+            </div>
+          </div>
+
+  </main>
+
+    <footer class="rodape">
+        <a href="https://www.metro.sp.gov.br/atendimento/fale-conosco.aspx" target="_blank">
+            <div><i class="fa-solid fa-phone"></i> Fale conosco</div>
+        </a>
+        <a href="https://www.metro.sp.gov.br/atendimento/ouvidoria.aspx" target="_blank">
+            <div><i class="fa-regular fa-comment-dots"></i> Ouvidoria</div>
+        </a>
+        <div><i class="fa-regular fa-clock"></i> 8h às 18h</div>
+        <a href="https://www.metro.sp.gov.br/atendimento/fale-conosco.aspx" target="_blank">
+            <div><i class="fa-solid fa-envelope"></i> SMS</div>
+        </a>
+    </footer>
+
+    <!-- Mini Aba Flutuante -->
+    <div class="mini-aba" onclick="toggleInfoPanel()">
+        <span class="icon">ℹ️</span>
+        <span class="text">Info</span>
+    </div>
+
+    <!-- Painel de Informações -->
+    <div class="info-panel" id="infoPanel">
+        <div class="info-panel-header">
+            <h3>📊 Informações do Sistema</h3>
+            <button class="info-panel-close" onclick="toggleInfoPanel()">×</button>
+        </div>
+        <div class="info-panel-content">
+            <div class="info-section">
+                <h4>📈 Estatísticas</h4>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number" id="totalColaboradores">0</div>
+                        <div class="stat-label">Colaboradores</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-section">
+                <h4>🎯 RG Metro</h4>
+                <p>Os colaboradores são identificados pelo RG Metro de 7 dígitos, que serve como usuário para login na plataforma.</p>
+            </div>
+
+            <div class="info-section">
+                <h4>📋 Setores Disponíveis</h4>
+                <ul>
+                    <li>Operação</li>
+                    <li>Manutenção</li>
+                    <li>Segurança</li>
+                    <li>Administrativo</li>
+                </ul>
+            </div>
+
+            <div class="info-section">
+                <h4>🔐 Login dos Alunos</h4>
+                <p>Após o cadastro, os colaboradores podem fazer login usando:</p>
+                <ul>
+                    <li>RG Metro (7 dígitos)</li>
+                    <li>Senha cadastrada</li>
+                </ul>
+            </div>
+
+            <div class="info-section">
+                <h4>⚡ Funcionalidades</h4>
+                <ul>
+                    <li>Cadastro de colaboradores</li>
+                    <li>Visualização da lista</li>
+                    <li>Remoção de colaboradores</li>
+                    <li>Integração com login</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======= ACESSIBILIDADE ======= -->
+    <!-- 1. Link de pular para o conteúdo -->
+    <a class="skip-link" href="#conteudo">Pular para o conteúdo principal</a>
+
+    <!-- 2. Texto só para leitores de tela -->
+    <style>
+      .skip-link {
+        position: absolute; left: -9999px; top: auto; width: 1px; height: 1px; overflow: hidden;
+      }
+      .skip-link:focus {
+        position: static; width: auto; height: auto; padding: .5rem 1rem; background: #eee;
+      }
+      .sr-only {
+        position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden;
+        clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+      }
+      :focus { outline: 3px solid #000; outline-offset: 2px; }
+    </style>
+
+    <!-- 3. Região para mensagens automáticas do leitor de tela -->
+    <div aria-live="polite" class="sr-only" id="mensagens"></div>
+
+    <!-- 4. Exemplo de alerta de erro/sucesso para leitores de tela -->
+    <div role="alert" id="status-form" class="sr-only">
+      Preencha os campos obrigatórios.
+    </div>
+    <!-- ======= FIM DA ACESSIBILIDADE ======= -->
+
+    <!-- VLibras -->
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+  </div>
+
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script src="https://cdn.userway.org/widget.js" data-account="SEU_ID_DA_USERWAY_AQUI"></script>
+    <script src="TelaCadastroColaboradores.js"></script>
+
+</body>
+</html>
